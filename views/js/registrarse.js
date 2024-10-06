@@ -4,6 +4,15 @@ formulario.addEventListener('submit', function (event) {
     event.preventDefault(); // Previene el envío automático del formulario debido a que no redirige por el submit
 })
 
+class user {
+    constructor(name, lastName, email, password) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+}
+
 function validate() {
 
     //se obtienen los inputs
@@ -52,7 +61,9 @@ function validate() {
     let email = emailInput.value;
     let password1 = password1Input.value;
     let password2 = password2Input.value;
+    let lastName;
 
     console.log("Registro correcto");
-    window.location.replace("inicioSesion.view.php");
+    let newUsers = new user(name, lastName, email, password1);
+    window.location.replace("./iniciarSesion");
 }
