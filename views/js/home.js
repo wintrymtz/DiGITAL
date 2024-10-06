@@ -41,7 +41,7 @@ document.querySelectorAll(".carousel").forEach(carousel => {
 
     items.forEach((item, i) => {
         item.addEventListener("click", () => {
-            window.location.href = "comprarCurso.view.php";
+            window.location.href = "./comprarCurso";
         })
     })
 

@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprar Curso</title>
-    <link rel="stylesheet" href="css/comprarCurso.css"> <!-- Vinculación del archivo CSS -->
-
-    <!--navbar links-->
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <!--font -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&display=swap" rel="stylesheet">
-
-</head>
-
-<body>
-<?php include('partials/nav.php') ?>
-
-
+<?php 
+$css = getFile('/comprarCurso', 'css');
+include('partials/head.php');
+include('partials/nav.php');
+ ?>
     <div class="container">
         <!-- Menú lateral con los niveles del curso -->
         <aside class="sidebar">
@@ -96,7 +79,7 @@
         </main>
     </div>
 
-    <script src="js/comprarCurso.js"></script>
+    <script src="<?=getFile('/comprarCurso','js')?>"></script>
 </body>
 
 </html>

@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrarse</title>
-    <link rel="shortcut icon" href="img/icono por mientras.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/registrarse.css">
-</head>
+<?php
+$css = getFile('/registrarse', 'css');
+include('partials/head.php'); 
+?>
 
 <body>
     <div class="register-container">
@@ -25,10 +19,10 @@
             </div>
             <button type="submit" onclick="validate()">Registrarse</button>
         </form>
-        <p>¿Ya tienes una cuenta? <a href="inicioSesion.view.php">Inicia Sesión</a></p>
+        <p>¿Ya tienes una cuenta? <a href="<?= getProjectRoot('/iniciarSesion') ?>">Inicia Sesión</a></p>
     </div>
 </body>
-<script src="js/validUs.js"></script>
-<script src="js/registrarse.js"></script>
+<script src="<?= getFile('/validUs', 'js') ?>"></script>
+<script src="<?= getFile('/registrarse', 'js') ?>"></script>
 
 </html>

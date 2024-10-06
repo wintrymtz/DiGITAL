@@ -1,8 +1,8 @@
 <?php
+$css = getFile('/home', 'css');
 include('partials/head.php');
 include('partials/nav.php');
 ?>
-
     <header class="second-header">
         <!-- efecto Wavy, la ola(wave) de la portada-->
         <div class="wave" style="height: 150px; overflow: hidden;"><svg viewBox="0 0 500 150" preserveAspectRatio="none"
@@ -174,6 +174,6 @@ include('partials/nav.php');
         <h2 class="titulo-final">&copy; DiGITAL | Cursos</h2>
     </footer>
 </body>
-<script src="views/js/home.js"></script>
+<script src="<?= getFile('/home', 'js')?>"></script>
 
 </html>

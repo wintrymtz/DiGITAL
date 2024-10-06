@@ -1,22 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
+<?php
+ $css = getFile('/ventasGeneral', 'css');
+ include('partials/nav.php');
+ include('partials/head.php');
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Cursos</title>
-    <link rel="stylesheet" href="css/ventasGeneral.css">
-
-    <!--navbar links-->
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <!--Font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&display=swap" rel="stylesheet">
-</head>
-
-<body>
-<?php include('partials/nav.php') ?>
+ ?>
 
     <!-- Contenedor principal -->
     <div class="container">
@@ -56,7 +43,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td> <a href="ventasCurso.view.php">Matemáticas para Videojuegos</a></td>
+                    <td> <a href="<?=getProjectRoot('/ventasCurso')?>">Matemáticas para Videojuegos</a></td>
                     <td>50</td>
                     <td>3</td>
                     <td>$300.00</td>

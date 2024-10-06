@@ -1,8 +1,7 @@
 <?php
 
-$Project = '/PROYECTO%20CURSOS';
-$Project2 = '/PaginaWeb';
-$url = $Project.$Project2;
+$Project = '/DiGITAL';
+$url = $Project;
 
 function dd($var)
 {
@@ -21,4 +20,20 @@ function isUri($route)
 function getProjectRoot($new){
     global $url;
     return $url.$new;
+}
+
+function getFile($new, $type){
+    global $url;
+
+    switch ($type) {
+    case 'css':
+        return 'views/css'.$new.'.css';
+        break;
+    case 'js':
+        return 'views/js'.$new.'.js';
+        break;
+    case 'img':
+        return 'views/img'.$new;
+        break;
+    }
 }

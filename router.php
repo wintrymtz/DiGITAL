@@ -2,12 +2,12 @@
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
+// Elimina el prefijo del proyecto de la URI solicitada
+$uri = str_replace('/DiGITAL', '', $uri);
+
 $routes = require "routes.php";
 
 function toController($uri,$routes){
-    if($uri === '/PROYECTO%20CURSOS/PaginaWeb/'){
-        dd('si encontró');
-    }
     if(array_key_exists($uri, $routes)) {
     
         require $routes[$uri];

@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-    <title>Perfil</title>
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/ProfileManager.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&display=swap" rel="stylesheet">
-</head>
-
-<body onload="getUser()">
-<?php include('partials/nav.php') ?>
-
-    <div class="main-container">
+<?php 
+$css = getFile('/manejarPerfil', 'css');
+include('partials/head.php');
+include('partials/nav.php');
+ ?>
+    <div class="main-container" >
 
         <section class="right-side">
             <h2>Cuenta</h2>
@@ -83,8 +74,8 @@
         </section>
 
     </div>
-    <script src="js/validUs.js"></script>
-    <script src="js/manejarPerfil.js"></script>
+    <script src="<?=getFile('/validUs', 'js')?>"></script>
+    <script src="<?=getFile('/manejarPerfil', 'js')?>"></script>
 </body>
 
 </html>

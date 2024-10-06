@@ -1,26 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <title>Subir Curso</title>
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/uploadCourse.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-</head>
-
-<body>
-<?php include('partials/nav.php') ?>
+<?php 
+$css = getFile('/subirCurso', 'css');
+include('partials/head.php');
+include('partials/nav.php');
+ ?>
 
     <div class="popup " id="popup-1">
         <div class="overlay"></div>
@@ -216,5 +198,5 @@
             </div>
         </form>
     </div>
-    <script src="js/subirCurso.js"></script>
+    <script src="<?=getFile('/subirCurso', 'js') ?>"></script>
 </body>

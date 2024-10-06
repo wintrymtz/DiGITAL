@@ -11,7 +11,7 @@ function iniciarSesion() {
 
     if (validar(email, password)) {
         console.log('hola');
-        window.location.replace("home.view.php");
+        window.location.replace("./");
     }
 }
 

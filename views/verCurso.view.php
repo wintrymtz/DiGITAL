@@ -2,30 +2,12 @@
   Este archivo HTML representa la estructura de la ventana de vista del curso para estudiantes.
   Se utiliza el framework de CSS Bootstrap 5 para el diseño y la responsividad.
 -->
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vista del Curso - Estudiante</title>
-  <!-- Enlace al CSS de Bootstrap 5 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <!-- Enlace al archivo CSS personalizado -->
-  <link rel="stylesheet" href="css/vistaCurso.css">
-
-  <!--navbar links-->
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <!--Font-->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&display=swap" rel="stylesheet">
-
-</head>
-
-<body>
-<?php include('partials/nav.php') ?>
+<?php 
+$boostrap = true;
+$css = getFile('/verCurso', 'css');
+include('partials/head.php');
+include('partials/nav.php');
+ ?>
 
 
   <!-- Contenedor principal -->
@@ -54,7 +36,7 @@
         </div>
         <!-- Descripción y materiales adicionales -->
         <div class="mt-4">
-          <label>Instructor:</label><a href="chat.view.php">Isaac Nehemías Mata Dominguez</a>
+          <label>Instructor:</label><a href="<?=getProjectRoot('/chat')?>">Isaac Nehemías Mata Dominguez</a>
 
           <h2>Principios Básicos</h2>
           <p>
@@ -120,7 +102,7 @@
 
   <!-- Enlaces a los scripts de Bootstrap 5 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/verCurso.js"></script>
+  <script src="<?=getProjectRoot('/verCurso')?>"></script>
 </body>
 
 </html>

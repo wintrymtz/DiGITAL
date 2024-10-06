@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <title>Buscar curso</title>
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/administrador.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&display=swap" rel="stylesheet">
-</head>
-
-<body>
-    <?php include('partials/nav.php') ?>
+    <?php
+    $css = getFile('/administrador', 'css');
+    include('partials/head.php');
+     include('partials/nav.php');
+     ?>
     <section class="main-container">
         <div class="filter-section">
             <h3>REPORTES DE USUARIOS:</h3>
@@ -129,5 +120,5 @@
             </form>
         </div>
     </section>
-    <script src="js/administrador.js"></script>
+    <script src="<?=getFile('/administrador', 'js') ?>"></script>
 </body>

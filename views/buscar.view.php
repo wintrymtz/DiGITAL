@@ -1,22 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <title>Buscar curso</title>
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/Busquedas.css">
-
-    <!--navbar links-->
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <!--Font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&display=swap" rel="stylesheet">
-
-</head>
-
-<body>
-<?php include('partials/nav.php') ?>
+<?php 
+$css = getFile('/buscar', 'css');
+include('partials/head.php');
+include('partials/nav.php');
+?>
 
     <section class="body-container">
         <div class="title-container">
@@ -153,7 +139,7 @@
 
     <script>
         document.getElementById("result1").addEventListener("click", function () {
-            window.location.href = "comprarCurso.view.php";
+            window.location.href = "<?=getProjectRoot("/comprarCurso")?>";
         });
     </script>
 </body>

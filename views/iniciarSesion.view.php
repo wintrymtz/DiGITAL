@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
-
-    <link rel="shortcut icon" href="img/icono por mientras.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/InicioSesion.css">
-</head>
+<?php 
+$css = getFile('/iniciarSesion', 'css');
+include('partials/head.php'); 
+?>
 
 <body>
     <div class="login-container">
@@ -18,10 +12,10 @@
             <input id="password" type="password" placeholder="Contraseña" required>
             <button type="submit" onclick="iniciarSesion()">Iniciar Sesión</button>
         </form>
-        <p>¿No tienes una cuenta? <a href="registrarse.view.php">Regístrate aquí</a></p>
+        <p>¿No tienes una cuenta? <a href="<?= getProjectRoot('/registrarse') ?>">Regístrate aquí</a></p>
     </div>
 
-    <script src="js/inicioSesion.js"></script>
+    <script src="<?= getFile('/iniciarSesion', 'js') ?>"></script>
 </body>
 
 </html>

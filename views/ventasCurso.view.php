@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de Alumnos por Curso</title>
-    <link rel="stylesheet" href="css/ventasCurso.css">
-    <!-- Enlace a Google Fonts para una mejor tipografía
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> -->
-
-    <!--navbar links-->
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <!--Font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&display=swap" rel="stylesheet">
-
-</head>
-
-<body>
-<?php include('partials/nav.php') ?>
+<?php 
+$css = getFile('/ventasCurso', "css");
+include('partials/nav.php');
+include('partials/head.php');
+?>
 
     <!-- Contenedor principal -->
     <div class="container">

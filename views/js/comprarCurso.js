@@ -13,5 +13,5 @@ function eliminarCurso() {
 }
 
 function buyCourse() {
-    window.location.href = 'confirmarCompra.view.php';
+    window.location.href = './confirmarCompra';
 }

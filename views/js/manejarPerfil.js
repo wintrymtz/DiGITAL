@@ -135,3 +135,5 @@ function validatePassForm() {
     console.log('Contraseña actualizada');
     alert('Contraseña actualizada');
 }
+
+getUser();
