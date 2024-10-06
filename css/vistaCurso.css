@@ -1,0 +1,102 @@
+/*
+  Este archivo CSS contiene estilos personalizados para la ventana de vista del curso.
+  Se complementa con los estilos proporcionados por el framework Bootstrap 5.
+*/
+
+/* Estilos para la barra lateral */
+.sidebar {
+  min-height: 100vh;
+  /* Hace que la barra lateral ocupe toda la altura de la ventana */
+  padding-top: 20px;
+  background-color: #f8f9fa;
+  /* Color de fondo claro */
+}
+
+/* Estilos para los elementos de la lista en la barra lateral */
+.sidebar .list-group-item {
+  border: none;
+  /* Elimina los bordes de los elementos */
+  border-radius: 0;
+  /* Elimina los bordes redondeados */
+  padding: 15px 20px;
+  /* Espaciado interno */
+  font-size: 16px;
+  color: #495057;
+  /* Color de texto */
+}
+
+.sidebar .list-group-item.active {
+  background-color: #0d6efd;
+  /* Color de fondo para el elemento activo */
+  color: #fff;
+  /* Color de texto para el elemento activo */
+}
+
+/* Estilos para el contenido principal */
+.main-content {
+  padding: 40px;
+  background-color: #ffffff;
+  /* Color de fondo blanco */
+}
+
+/* Estilos para el video responsivo */
+.embed-responsive {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 56.25%;
+  /* Proporción 16:9 */
+}
+
+.embed-responsive .embed-responsive-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Estilos para los comentarios */
+.card {
+  border: 1px solid #dee2e6;
+  /* Borde ligero */
+  border-radius: 5px;
+  /* Bordes redondeados */
+}
+
+.card-body {
+  padding: 15px;
+}
+
+/* Estilos para el formulario de comentarios */
+form textarea {
+  resize: none;
+  /* Deshabilita el cambio de tamaño del textarea */
+}
+
+form button {
+  background-color: #0d6efd;
+  /* Color de fondo del botón */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0b5ed7;
+  /* Color de fondo al pasar el cursor */
+}
+
+/*Calificar curso*/
+.star {
+  font-size: 30px;
+}
+
+.radio-star {
+  display: none;
+}

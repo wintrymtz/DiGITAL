@@ -1,0 +1,143 @@
+body {
+    background-color: rgb(237, 237, 237);
+}
+
+.main-container {
+    display: block;
+    text-align: center;
+    margin: auto;
+    margin-top: 30px;
+    background-color: white;
+    width: 80%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+.filter-section {
+    width: 80%;
+    margin: 50px;
+    text-align: left;
+    padding-top: 20px;
+}
+
+.reports-section {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    height: 100%;
+    margin-bottom: 200px;
+}
+
+.categories-section {
+    display: block;
+    text-align: left;
+    margin: 20px;
+    height: 100%;
+    padding-left: 20px;
+    padding-bottom: 100px;
+}
+
+/* .kardex-section h4 {
+    display: block;
+} */
+
+.reports-section table {
+    width: 100%;
+}
+
+.reports-section th,
+.reports-section td {
+    /* border-radius: 10px; */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.reports-section th {
+    background-color: rgb(3, 152, 3);
+    color: white;
+    padding-left: 40px;
+    padding-right: 40px;
+
+}
+
+.reports-section tr:nth-child(odd) {
+    background-color: hsl(0, 0%, 91%);
+}
+
+.reports-section tr:nth-child(even) {
+    background-color: hsl(0, 0%, 84%);
+}
+
+.reports-section td:nth-child(1) {
+    width: 250px;
+}
+
+.reports-section td:nth-child(2) {
+    width: 300px;
+}
+
+.reports-section td:nth-child(4) {
+    width: 30px;
+
+}
+
+.filter-option {
+    background-color: rgb(237, 237, 237);
+    padding: 20px;
+    margin-right: 10px;
+    border-radius: 20px;
+}
+
+select,
+input[type="date"] {
+    padding: 8px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 130px;
+    background-color: #f1f1f1;
+}
+
+.textArea {
+    width: 590px;
+    height: 100px;
+
+    padding: 8px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 15px;
+    background-color: #f1f1f1;
+    margin-right: 50px;
+
+    resize: none;
+}
+
+.textInput {
+    width: 200px;
+    border-radius: 10px;
+    height: 10px;
+    margin: 10px;
+    padding-left: 20px;
+
+    padding: 8px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 15px;
+    background-color: #f1f1f1;
+    margin-right: 50px;
+}
+
+input[type="submit"] {
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    padding: 0;
+    margin-top: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+input[type="submit"]:hover {
+    background-color: var(--hover1-color);
+    border: 0;
+}

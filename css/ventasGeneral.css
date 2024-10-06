@@ -1,0 +1,79 @@
+/* Fuente global */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo del título */
+h1 {
+    text-align: center;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+/* Estilo de los filtros */
+.filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.filters label {
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.filters input, .filters select {
+    padding: 8px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+    background-color: #f1f1f1;
+}
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #555555;
+}
+
+table thead {
+    background-color: #4CAF50;
+    color: white;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+}
+
+/* Efecto hover en las filas de la tabla */
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilos para el pie de la tabla */
+tfoot td {
+    font-weight: bold;
+    font-size: 18px;
+    background-color: #f9f9f9;
+}

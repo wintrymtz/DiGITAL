@@ -1,0 +1,61 @@
+/* Fuente global */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo del título */
+h1 {
+    text-align: center;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+/* Estilo del subtítulo del curso */
+.course-details h2 {
+    color: #4CAF50;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #555555;
+}
+
+table thead {
+    background-color: #4CAF50;
+    color: white;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+tfoot td {
+    font-weight: bold;
+    font-size: 18px;
+}

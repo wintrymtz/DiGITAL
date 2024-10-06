@@ -1,0 +1,193 @@
+/* Define estilos básicos para el cuerpo de la página */
+.main-container {
+    font-family: 'Arial', sans-serif;
+    /* Fuente principal */
+    background-color: #f0f4f8;
+    /* Color de fondo de la página */
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    /* Altura completa de la ventana */
+    display: flex;
+    /* Utiliza flexbox para centrar el contenido */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo del contenedor principal del chat */
+.chat-container {
+    background-color: #fff;
+    /* Fondo blanco para el chat */
+    width: 100vw;
+    /* Ancho completo de la ventana */
+    height: 100vh;
+    /* Altura completa de la ventana */
+    border-radius: 0;
+    /* Sin bordes redondeados, para ocupar toda la pantalla */
+    box-shadow: none;
+    /* Sin sombra alrededor del contenedor */
+    display: flex;
+    flex-direction: column;
+    /* Apila los elementos en una columna */
+    overflow: hidden;
+    /* Oculta cualquier contenido que se desborde */
+}
+
+/* Estilo del encabezado del chat */
+.chat-header {
+    background-color: #1976d2;
+    /* Color de fondo azul */
+    padding: 20px;
+    /* Espaciado interno */
+    color: white;
+    /* Texto blanco */
+    text-align: center;
+    /* Texto centrado */
+}
+
+.chat-header h2 {
+    margin: 0;
+    /* Elimina el margen del título */
+    font-size: 2em;
+    /* Tamaño de fuente del título */
+}
+
+.chat-header p {
+    margin: 5px 0 0 0;
+    /* Margen superior y eliminación de otros márgenes */
+    font-size: 1.2em;
+    /* Tamaño de fuente del subtítulo */
+}
+
+/* Estilo del cuerpo del chat */
+.chat-body {
+    padding: 20px;
+    /* Espaciado interno */
+    flex-grow: 1;
+    /* Permite que el cuerpo crezca y ocupe el espacio disponible */
+    overflow-y: auto;
+    /* Habilita el desplazamiento vertical si hay muchos mensajes */
+    background-color: #e8f0fe;
+    /* Color de fondo suave */
+}
+
+/* Estilo para los mensajes */
+.message {
+    margin: 10px 0;
+    /* Margen vertical entre mensajes */
+    display: flex;
+}
+
+.message.left {
+    justify-content: flex-start;
+    /* Alinea los mensajes a la izquierda */
+}
+
+.message.right {
+    justify-content: flex-end;
+    /* Alinea los mensajes a la derecha */
+}
+
+/* Contenedor del contenido del mensaje */
+.message-content {
+    background-color: #1976d2;
+    /* Fondo azul para el mensaje */
+    color: white;
+    /* Texto blanco */
+    padding: 10px 15px;
+    /* Espaciado interno */
+    border-radius: 20px;
+    /* Bordes redondeados */
+    max-width: 60%;
+    /* Ancho máximo del mensaje */
+    position: relative;
+}
+
+/* Estilo para los mensajes del estudiante (derecha) */
+.message.right .message-content {
+    background-color: #4caf50;
+    /* Fondo verde para los mensajes del estudiante */
+}
+
+/* Estilo para la marca de tiempo */
+.timestamp {
+    font-size: 0.8em;
+    /* Tamaño de fuente pequeño */
+    margin-top: 5px;
+    /* Margen superior */
+    display: block;
+    text-align: right;
+    /* Alinea la marca de tiempo a la derecha */
+    color: rgba(255, 255, 255, 0.7);
+    /* Texto blanco con transparencia */
+}
+
+/* Estilo del pie de página del chat */
+.chat-footer {
+    display: flex;
+    /* Utiliza flexbox para alinear los elementos */
+    border-top: 1px solid #ccc;
+    /* Línea superior */
+    padding: 20px;
+    /* Espaciado interno */
+    background-color: #f7f7f7;
+    /* Color de fondo claro */
+}
+
+.chat-footer input[type="text"] {
+    flex-grow: 1;
+    /* Hace que el campo de texto ocupe el espacio disponible */
+    padding: 15px;
+    /* Espaciado interno */
+    border: 1px solid #ccc;
+    /* Borde del campo de texto */
+    border-radius: 20px;
+    /* Bordes redondeados */
+    font-size: 1.2em;
+    /* Tamaño de la fuente */
+    outline: none;
+    /* Elimina el borde al enfocarse */
+    margin-right: 10px;
+    /* Margen derecho para separar del botón */
+}
+
+.chat-footer button {
+    padding: 15px 25px;
+    /* Espaciado interno */
+    background-color: #1976d2;
+    /* Fondo azul */
+    color: white;
+    /* Texto blanco */
+    border: none;
+    /* Sin borde */
+    border-radius: 20px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Muestra un cursor de mano al pasar por encima */
+    font-size: 1.2em;
+    /* Tamaño de la fuente */
+    transition: background-color 0.3s ease;
+    /* Transición suave para el color de fondo */
+}
+
+/* Cambia el color de fondo del botón al pasar el cursor */
+.chat-footer button:hover {
+    background-color: #155a9c;
+    /* Azul más oscuro */
+}
+
+/*Contenedor de la imagen*/
+.image-container {
+    display: flex;
+    align-items: center;
+}
+
+/*Imagenes en los mensajes*/
+.avatar-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+    margin-left: 20px;
+}

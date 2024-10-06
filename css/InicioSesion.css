@@ -1,0 +1,74 @@
+/*fondo*/
+body {
+    font-family: 'Arial', sans-serif;
+    
+
+    background: #bc4e9c;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f80759, #bc4e9c);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f80759, #bc4e9c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+
+
+
+
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/*fondo de el cuadro de inicio de sesion*/
+.login-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+
+
+
+/*letras de inicio de sesion*/
+.login-container h2 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #333;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+}
+
+/*boton de inicio de sesion*/
+.login-container button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+/*letras de "no tienes una cuenta"*/
+.login-container p {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
+}
+/*letras de registrare aqui*/
+.login-container a {
+    color: #007bff;
+    text-decoration: none;
+}

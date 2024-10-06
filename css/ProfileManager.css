@@ -1,0 +1,144 @@
+body {
+    background-color: rgb(241, 241, 241);
+}
+
+.main-container {
+    display: flex;
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+/* .left-side,
+.right-side {
+    background-color: rgb(255, 226, 226);
+} */
+
+
+.left-side {
+    float: left;
+    width: 20%;
+}
+
+.left-side ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px;
+}
+
+
+.option-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(109, 109, 109);
+    margin-top: 5px;
+    height: 40px;
+    border-radius: 10px;
+
+}
+
+.right-side {
+    float: right;
+    width: 40%;
+}
+
+
+.personal-inf,
+.password-inf,
+.avatar-inf {
+    /* border: solid gray 1px; */
+    width: 100%;
+    margin-left: 0;
+    padding-left: 20px;
+    padding-bottom: 40px;
+    padding-top: 20px;
+    padding-right: 20px;
+    margin-bottom: 50px;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+.avatar-inf {
+    display: block;
+    text-align: center;
+}
+
+.personal-inf input,
+.password-inf input,
+.avatar-inf input,
+.button-type {
+    width: 480px;
+    height: 50px;
+    border-radius: 20px;
+    padding-left: 20px;
+    margin-top: 10px;
+    font-size: 15px;
+
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    margin-left: 10px;
+}
+
+input[type="date"] {
+    width: 200px;
+}
+
+.personal-inf input[type="submit"],
+.password-inf input[type="submit"],
+.avatar-inf input[type="submit"] {
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    padding: 0;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.personal-inf input[type="submit"]:hover,
+.password-inf input[type="submit"]:hover,
+.avatar-inf input[type="submit"]:hover {
+    background-color: var(--hover1-color);
+    border: 0;
+}
+
+.button-type {
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    padding: 0;
+    background-color: rgb(46, 46, 212);
+    color: white;
+}
+
+.button-type:hover {
+    background-color: rgb(81, 81, 224);
+}
+
+.name-input,
+.email-input,
+.lastname-input,
+.password-input,
+.gender-input div {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: left;
+}
+
+.gender-input label {
+    align-content: center;
+    margin-right: 30px;
+}
+
+input[type="radio"] {
+    width: 30px;
+    margin-top: 0;
+}
+
+input::placeholder {
+    color: var(--header-font);
+}
