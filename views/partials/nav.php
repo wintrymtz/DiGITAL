@@ -1,7 +1,9 @@
+    
+    <body>
     <!--Navbar-->
     <header class="main-header">
         <a href="home.view.php">
-            <img class="logo" src="img/logo_v2.jpg">
+            <img class="logo" src="views/img/logo_v2.jpg">
         </a>
         <form class="search-form" action="busquedas.view.php">
             <div class="search">
@@ -30,8 +32,9 @@
                         <li><a href="inicioSesion.view.php">Cerrar Sesión</a></li>
                         <li><a href="administrador.view.php" style="color: red;">Administrador</a></li>
                     </ul>
-                    <div class="btn-iniciarSesion"><a class="link-sesion" href="inicioSesion.view.php">Iniciar
-                            Sesión</a>
+                    <div class="btn-iniciarSesion">
+                        <a  href="<?=getProjectRoot("/iniciarSesion")?>" class="link-sesion" >Iniciar Sesión</a>
+                            
                     </div>
                 </li>
             </ul>
