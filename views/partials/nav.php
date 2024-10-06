@@ -34,7 +34,6 @@
                     </ul>
                     <div class="btn-iniciarSesion">
                         <a  href="<?=getProjectRoot("/iniciarSesion")?>" class="link-sesion" >Iniciar Sesión</a>
-                            
                     </div>
                 </li>
             </ul>
