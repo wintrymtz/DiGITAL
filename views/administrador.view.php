@@ -1,7 +1,7 @@
     <?php
     $css = getFile('/administrador', 'css');
     include('partials/head.php');
-     include('partials/nav.php');
+    include('partials/nav.php');
      ?>
     <section class="main-container">
         <div class="filter-section">

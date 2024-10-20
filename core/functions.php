@@ -36,4 +36,10 @@ function getFile($new, $type){
         return 'views/img'.$new;
         break;
     }
+
+}
+
+function base_path($path): string
+{
+return BASE_PATH . $path;
 }

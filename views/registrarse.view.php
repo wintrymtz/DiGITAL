@@ -7,7 +7,8 @@ include('partials/head.php');
     <div class="register-container">
         <h2>Registrarse</h2>
         <form id="formulario">
-            <input id="name" type="text" placeholder="Nombre Completo" required>
+            <input id="name" type="text" placeholder="Nombre" required>
+            <input id="lastname" type="text" placeholder="Apellidos" required>
             <input id="email" type="email" placeholder="Correo Electrónico" required>
             <input id="password1" type="password" placeholder="Contraseña" required>
             <input id="password2" type="password" placeholder="Confirmar Contraseña" required>

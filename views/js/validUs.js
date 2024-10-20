@@ -50,7 +50,7 @@ function validateName(nameInput) {
 
 function validateLastName(lastnameInput) {
     //Validar longitud
-    if (lastnameInput.value.length > 20) {
+    if (lastnameInput.value.length > 30) {
         lastnameInput.setCustomValidity('No se permite más de 30 caracteres en el apellido');
         return false;
     }
