@@ -11,6 +11,8 @@ const formPassword = document.getElementById('formulario-pass')
 const oldPasswordInput = document.getElementById('oldPassword');
 const newPasswordInput = document.getElementById('newPassword');
 
+let gb_email;
+
 formulario.addEventListener('submit', function (event) {
     event.preventDefault(); // Previene el envío automático del formulario debido a que no redirige por el submit
 })
@@ -19,30 +21,184 @@ formPassword.addEventListener('submit', function (event) {
     event.preventDefault(); // Previene el envío automático del formulario debido a que no redirige por el submit
 })
 
-function getUser() {
+async function getUser() {
     //llenar los inputs automaticamente con los datos del usuario
 
-    //valores dummy
-    nameInput.value = 'Sergio';
-    emailInput.value = 'correo@gmail.com';
-    lastNameInput.value = 'Castañeda Mata';
-    dateInput.value = '2000-02-01';
-    formulario.gender[0].checked = true;
+    // //valores dummy
+    // nameInput.value = 'Sergio';
+    // emailInput.value = 'correo@gmail.com';
+    // lastNameInput.value = 'Castañeda Mata';
+    // dateInput.value = '2000-02-01';
+    // formulario.gender[0].checked = true;
+
+    let data = await sendRequest_getUser();
+    let user = data['data'];
+    gb_email = user['email'];
+
+    nameInput.value = user['nombre'];
+    emailInput.value = user['email'];
+    lastNameInput.value = user['apellido'];
+    dateInput.value = user['fechaNacimiento'];
+    switch (user['genero']) {
+        case 'hombre':
+            formulario.gender[0].checked = true;
+            break;
+        case 'mujer':
+            formulario.gender[1].checked = true;
+            break;
+        case 'otro':
+            formulario.gender[2].checked = true;
+            break;
+
+        default:
+            formulario.gender[0].checked = false;
+            formulario.gender[1].checked = false;
+    }
 }
 
-function updateUser() {
+async function sendRequest_getUser() {
+
+    let formBody = {
+        email: 'correo@correo.com'
+    }
+    let requestState = false;
+    let data = [];
+
+    await fetch('http://localhost:80/DiGITAL/registrarse/show', {
+        method: 'POST',
+        body: JSON.stringify(formBody)
+    }).then((response) => {
+
+        if (!response.ok) {
+            requestState = false;
+            throw response;
+        } else {
+            requestState = true;
+        }
+        return response.json()
+    }).then((response) => {
+        data = response;
+    }).catch(async (error) => {
+        const errorResponse = await error.json();
+        alert(errorResponse['msg']);
+    }).then(() => {
+        console.log('terminó');
+    });
+
+    return data;
+}
+
+async function sendRequest_updateInfo() {
+    //Obtenemos valores
+    let name = nameInput.value;
+    let lastName = lastNameInput.value;
+    let email = emailInput.value;
+    let date = dateInput.value;
+    let gender;
+
+    //Revisamos radio buttons
+    for (var i = 0, length = radiosInput.length; i < length; i++) {
+        if (radiosInput[i].checked) {
+            gender = radiosInput[i].value;
+            break;
+        }
+    }
+
+    let formBody = {
+        name: name,
+        lastName: lastName,
+        email: email,
+        date: date,
+        gender: gender
+    }
+
+    let requestState = false;
+
+    await fetch('http://localhost:80/DiGITAL/registrarse/update-info', {
+        method: 'POST',
+        body: JSON.stringify(formBody)
+    }).then((response) => {
+
+        if (!response.ok) {
+            requestState = false;
+            throw response;
+        } else {
+            requestState = true;
+        }
+        return response.json()
+    }).then((response) => {
+    }).catch(async (error) => {
+        const errorResponse = await error.json();
+        alert(errorResponse['errorDetails']);
+    }).then(() => {
+        console.log('terminó');
+    });
+
+    return requestState;
+}
+
+async function sendRequest_updatePassword() {
+
+    //Obtenemos valores
+    let newPassword = newPasswordInput.value;
+    let oldPassword = oldPasswordInput.value;
+
+    let formBody = {
+        email: gb_email,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+    }
+
+    console.log(formBody);
+
+    let requestState = false;
+    let data = [];
+
+    await fetch('http://localhost:80/DiGITAL/registrarse/update-password', {
+        method: 'POST',
+        body: JSON.stringify(formBody)
+    }).then((response) => {
+
+        if (!response.ok) {
+            requestState = false;
+            throw response;
+        } else {
+            requestState = true;
+        }
+        return response.json()
+    }).then((response) => {
+        data = response;
+    }).catch(async (error) => {
+        const errorResponse = await error.json();
+        alert(errorResponse['msg']);
+    }).then(() => {
+        console.log('terminó');
+    });
+
+    let result = data['msg'];
+    alert(result['response']);
+
+    return requestState;
+}
+
+async function updateUser() {
 
     if (!validateInfoForm()) {
         return;
     }
 
-    console.log('Usuario actualizado');
-
+    if (await sendRequest_updateInfo()) {
+        location.reload();
+    }
 }
 
-function updatePassword() {
+async function updatePassword() {
     if (!validatePassForm()) {
         return;
+    }
+
+    if (await sendRequest_updatePassword()) {
+        location.reload();
     }
 }
 
@@ -94,20 +250,6 @@ function validateInfoForm() {
         return false;
     }
 
-    //Obtenemos valores
-    let name = nameInput.value;
-    let lastName = lastNameInput.value;
-    let email = emailInput.value;
-    let date = dateInput.value;
-    let gender;
-
-    //Revisamos radio buttons
-    for (var i = 0, length = radiosInput.length; i < length; i++) {
-        if (radiosInput[i].checked) {
-            gender = radiosInput[i].value;
-            break;
-        }
-    }
     return true;
 }
 
@@ -130,10 +272,10 @@ function validatePassForm() {
     //Validamos nueva contraseña
     if (!validatePassword(newPasswordInput)) {
         newPasswordInput.reportValidity();
-        return;
+        return false;
     }
-    console.log('Contraseña actualizada');
-    alert('Contraseña actualizada');
+
+    return true;
 }
 
 getUser();

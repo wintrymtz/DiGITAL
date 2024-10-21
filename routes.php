@@ -7,10 +7,15 @@ return [
     '/registrarse' => 'controllers/registration/registrarse.php',
     '/registrarse/store' => 'controllers/registration/store.php',
     '/registrarse/login' => 'controllers/registration/login.php',
+    '/registrarse/show' => 'controllers/registration/show.php',
+    '/registrarse/update-info' => 'controllers/registration/update.php',
+    '/registrarse/update-password' => 'controllers/registration/updatePassword.php',
+
+    '/manejarPerfil' => 'controllers/manejarPerfil.php',
+
     
     '/subirCurso' => 'controllers/subirCurso.php',
     '/kardex' => 'controllers/kardex.php',
-    '/manejarPerfil' => 'controllers/manejarPerfil.php',
     '/ventasGeneral' => 'controllers/ventasGeneral.php',
     '/ventasCurso' => 'controllers/ventasCurso.php',
     '/verCurso' => 'controllers/verCurso.php',
