@@ -21,6 +21,14 @@ try{
             'password' => $password,
         ])->find();
 
+        //almacenamos sesion
+        if($user){
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['nombre'] = $user['nombre'];
+            $_SESSION['foto'] = $user['foto'];
+            $_SESSION['rol'] = $user['rol'];
+        }
+
         unset($email);
         unset($password);
 

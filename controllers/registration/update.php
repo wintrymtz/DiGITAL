@@ -10,7 +10,8 @@ $body = json_decode($json, true);
 
 $nombre = $body['name'];
 $apellido = $body['lastName'];
-$email = $body['email'];
+$oldEmail = $body['oldEmail'];
+$newEmail = $body['newEmail'];
 $fechaNacimiento = $body['date'];
 $gender = $body['gender'];
 
@@ -19,19 +20,22 @@ $errors = array();
 try{
     if(empty($errors)){
         
-            $query = 'CALL sp_UpdateUserInfo(:email, :nombre, :apellido, :fechaNacimiento, :gender)';
+            $query = 'CALL sp_UpdateUserInfo(:newEmail, :oldEmail, :nombre, :apellido, :fechaNacimiento, :gender)';
             $insert = $db->query($query, [
-                'email' => $email,
-                'nombre' => $nombre,
+                'nombre' =>$nombre,
+                'newEmail' => $newEmail,
+                'oldEmail' => $oldEmail,
                 'apellido' => $apellido,
                 'fechaNacimiento' => $fechaNacimiento,
                 'gender' => $gender,
             ]);
     
+        $_SESSION['email'] = $newEmail;
 
         unset($nombre);
         unset($apellido);
-        unset($email);
+        unset($oldEmail);
+        unset($newEmail);
         unset($fechaNacimiento);
         unset($gender);
 

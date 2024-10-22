@@ -10,4 +10,9 @@ $heading = 'Iniciar Sesión';
 
 // dd($notes);
 
+if(isset($_SESSION['email'])){
+    session_destroy();
+}
+
+
 require 'views/iniciarSesion.view.php';

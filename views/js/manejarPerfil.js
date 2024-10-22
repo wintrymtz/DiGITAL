@@ -30,10 +30,14 @@ async function getUser() {
     // lastNameInput.value = 'Castañeda Mata';
     // dateInput.value = '2000-02-01';
     // formulario.gender[0].checked = true;
+    if (! await getSession()) {
+        alert('Sesion no iniciada');
+        window.location.href = '/DiGITAL';
+    };
 
     let data = await sendRequest_getUser();
     let user = data['data'];
-    gb_email = user['email'];
+    console.log(data);
 
     nameInput.value = user['nombre'];
     emailInput.value = user['email'];
@@ -56,10 +60,32 @@ async function getUser() {
     }
 }
 
+async function getSession() {
+
+    let request = false;
+
+    await fetch('http://localhost:80/DiGITAL/session/getSession')
+        .then(response => response.json())
+        .then((user) => {
+            console.log('sesion1:' + user);
+
+            if (user === 'fail') {
+                request = false;
+            } else {
+                request = true;
+                gb_email = user;
+            }
+
+        });
+
+    console.log(request);
+    return request;
+}
+
 async function sendRequest_getUser() {
 
     let formBody = {
-        email: 'correo@correo.com'
+        email: gb_email
     }
     let requestState = false;
     let data = [];
@@ -107,7 +133,8 @@ async function sendRequest_updateInfo() {
     let formBody = {
         name: name,
         lastName: lastName,
-        email: email,
+        newEmail: email,
+        oldEmail: gb_email,
         date: date,
         gender: gender
     }
@@ -188,6 +215,7 @@ async function updateUser() {
     }
 
     if (await sendRequest_updateInfo()) {
+        alert('se actualizó correctamente');
         location.reload();
     }
 }

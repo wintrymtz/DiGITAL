@@ -23,14 +23,43 @@
                         <li><a href="#">API's</a></li>
                     </ul>
                 </li>
-                <li class="li-option"><a href="<?=getProjectRoot("/subirCurso")?>">Subir Curso</a></li>
-                <li class="li-option"><a href="<?=getProjectRoot("/kardex")?>">Kardex</a></li>
+                <?php
+                if($rol ==='instructor'){
+                    ?>
+                    <li class="li-option"><a href="<?=getProjectRoot("/subirCurso")?>">Subir Curso</a></li>
+                    <?php
+                } else if($rol === 'estudiante'){
+                    ?>
+                    <li class="li-option"><a href="<?=getProjectRoot("/kardex")?>">Kardex</a></li>
+                    <?php
+                } else if($rol === 'administrador'){
+                    ?>
+                    <?php
+                } else{
+                    
+                }?>  
                 <li class="li-categories">
                     <ul class="dropdown">
-                        <li><a href="<?=getProjectRoot("/manejarPerfil")?>">Perfil</a></li>
-                        <li><a href="<?=getProjectRoot("/ventasGeneral")?>">Ventas</a></li>
-                        <li><a href="<?=getProjectRoot("/iniciarSesion")?>">Cerrar Sesión</a></li>
-                        <li><a href="<?=getProjectRoot("/administrador")?>" style="color: red;">Administrador</a></li>
+                        <?php 
+                        if($rol ==='instructor'){
+                            ?>
+                            <li><a href="<?=getProjectRoot("/manejarPerfil")?>">Perfil</a></li>
+                            <li><a href="<?=getProjectRoot("/ventasGeneral")?>">Ventas</a></li>
+                            <li><a href="<?=getProjectRoot("/iniciarSesion")?>">Cerrar Sesión</a></li>
+                            <?php
+                        } else if($rol === 'estudiante'){
+                            ?>
+                            <li><a href="<?=getProjectRoot("/manejarPerfil")?>">Perfil</a></li>
+                            <li><a href="<?=getProjectRoot("/iniciarSesion")?>">Cerrar Sesión</a></li>
+                            <?php
+                        } else if($rol === 'administrador'){
+                            ?><li><a href="<?=getProjectRoot("/manejarPerfil")?>">Perfil</a></li>
+                              <li><a href="<?=getProjectRoot("/iniciarSesion")?>">Cerrar Sesión</a></li>
+                              <li><a href="<?=getProjectRoot("/administrador")?>" style="color: red;">Administrador</a></li>
+                            <?php
+                        } else{
+                            echo 'Sesión no iniciada';
+                        }?>                        
                     </ul>
                     <div class="btn-iniciarSesion">
                         <a  href="<?=getProjectRoot("/iniciarSesion")?>" class="link-sesion" >Iniciar Sesión</a>

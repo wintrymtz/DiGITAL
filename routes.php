@@ -2,7 +2,7 @@
 
 return [
    '/' => 'controllers/index.php',
-    '/iniciarSesion' => 'controllers/iniciarSesion.php',
+    '/iniciarSesion' => 'controllers/registration/iniciarSesion.php',
 
     '/registrarse' => 'controllers/registration/registrarse.php',
     '/registrarse/store' => 'controllers/registration/store.php',
@@ -12,6 +12,7 @@ return [
     '/registrarse/update-password' => 'controllers/registration/updatePassword.php',
 
     '/manejarPerfil' => 'controllers/manejarPerfil.php',
+    '/session/getSession' => 'controllers/session/getSession.php',
 
     
     '/subirCurso' => 'controllers/subirCurso.php',

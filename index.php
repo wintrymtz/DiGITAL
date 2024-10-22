@@ -1,25 +1,12 @@
 <?php
+session_start();
+
 require 'core/functions.php';
 require 'Database.php';
 
-// $config = require './config.php';
-// $db = new Database($config);
-
-
-// $query = 'CALL sp_RegistrarUsuario(:email, :nombre, :apellido, :password, :rol)';
-// $insert = $db->query($query, [
-//     'email' => 'test',
-//     'nombre' => 'test',
-//     'apellido' => 'test',
-//     'password' =>'test',
-//     'rol' => 1,
-// ]);
-
-
-
 require 'router.php';
 
-
+//--- NO IMPLEMENTADO
 
 // <?php
 
