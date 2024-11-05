@@ -102,21 +102,19 @@
         <div class="categories-section">
             <h3>ADMINISTRAR CATEGORÍAS:</h3>
             <br>
-            <form>
+            <form id='form'>
                 <div>
                     <label>Editar categoría:</label>
-                    <select>
-                        <option>Python</option>
-                        <option>C++</option>
-                        <option>IA</option>
+                    <select id='categoryList'>
+                        <option>None</option>
                     </select>
                     <label>o Añadir una nueva:</label>
-                    <input class="textInput" type="text" placeholder="Categoría">
+                    <input id='newCategory' class="textInput" type="text" placeholder="Categoría">
                 </div>
                 <br>
-                <textarea class="textArea" placeholder="Descripcion"></textarea>
+                <textarea id='newCategoryDesc' class="textArea" placeholder="Descripcion"></textarea>
                 <br>
-                <input type="submit">
+                <input type="submit" onclick='validate()'>
             </form>
         </div>
     </section>

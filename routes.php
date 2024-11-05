@@ -16,11 +16,20 @@ return [
 
     
     '/subirCurso' => 'controllers/subirCurso.php',
+    '/subirCurso/create' => 'controllers/courses/create.php',
+
+
     '/kardex' => 'controllers/kardex.php',
     '/ventasGeneral' => 'controllers/ventasGeneral.php',
     '/ventasCurso' => 'controllers/ventasCurso.php',
     '/verCurso' => 'controllers/verCurso.php',
+
     '/administrador' => 'controllers/administrador.php',
+    '/admin/category/store' => 'controllers/categories/store.php',
+    '/admin/category/getAll' => 'controllers/categories/show.php',
+    '/admin/category/update' => 'controllers/categories/update.php',
+
+
     '/buscar' => 'controllers/buscar.php',
     '/comprarCurso' => 'controllers/comprarCurso.php',
     '/confirmarCompra' => 'controllers/confirmarCompra.php',

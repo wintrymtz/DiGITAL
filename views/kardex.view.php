@@ -70,7 +70,7 @@ include('partials/nav.php');
                     </tr>
                     <tr>
                         <td><a href="<?=getProjectRoot('/verCurso')?>">Curso de winAPI</a></td>
-                        <td><a href="views/certificado/Diploma.html">100%</a></td>
+                        <td><a href="views/certificado/Diploma_B.html">100%</a></td>
                         <td>25 ENE 2015</td>
                         <td>15 ENE 2015</td>
                         <td>23 ENE 2015</td>

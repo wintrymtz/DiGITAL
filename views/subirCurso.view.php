@@ -184,11 +184,7 @@ include('partials/nav.php');
                     <div class="add-categories">
                         <label style="display: block;">Seleccionar categorías</label>
                         <br>
-                        <select class="select-category" multiple required>
-                            <option class="category">Python</option>
-                            <option class="category">C#</option>
-                            <option class="category">CSS</option>
-                            <option class="category">HTML</option>
+                        <select id='category-list' class="select-category" multiple required>
                         </select>
                     </div>
                 </div>

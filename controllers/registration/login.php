@@ -23,6 +23,7 @@ try{
 
         //almacenamos sesion
         if($user){
+            $_SESSION['id'] = $user['idUsuario'];
             $_SESSION['email'] = $user['email'];
             $_SESSION['nombre'] = $user['nombre'];
             $_SESSION['foto'] = $user['foto'];
@@ -51,7 +52,6 @@ try{
             echo json_encode($response);
             return;
         }
-      
         return;
     } else {
         header('HTTP/1.1 400');

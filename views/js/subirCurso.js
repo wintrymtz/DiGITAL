@@ -1,8 +1,13 @@
 const formulario = document.getElementById('formulario');
 const tituloInput = document.getElementById('titulo');
 const descripcionInput = document.getElementById('descripcion');
+let categorySelect = document.getElementById('category-list');
+
 let levelNamesInputs = [];
 let levelPriceInputs = [];
+let selectedValues;
+
+let categories = [];
 
 let levelFileInput = document.getElementById('subir-archivo');
 let urlInput = document.getElementById('subir-url');
@@ -32,6 +37,12 @@ let levelIndex = 1;
 
 //Contenedor de elementos
 let divArchivos = document.getElementById('levelContent')
+
+
+categorySelect.addEventListener('change', () => {
+    selectedValues = Array.from(categorySelect.selectedOptions).map(option => option.id);
+    console.log('Valores seleccionados:', selectedValues);
+});
 
 addLevelBtn.addEventListener('click', function () {
     console.log('click');
@@ -106,12 +117,18 @@ function uploadCourse() {
     levelPriceInputs = document.getElementsByName('precio');
     console.log(levelPriceInputs.length);
 
+
     if (!validateCourse()) {
         return;
     }
 
-    alert('El curso se ha subido correctamente');
-    window.location.href = 'ventasGeneral.view.php';
+
+
+
+
+    sendRequestCreate();
+    // alert('El curso se ha subido correctamente');
+    // window.location.href = 'ventasGeneral.view.php';
 
 }
 
@@ -166,8 +183,6 @@ function validateCourse() {
     if (!validatePrice(priceInput)) {
         return false;
     }
-
-    console.log('Curso añadido correctamente');
 
     return true;
 }
@@ -262,3 +277,71 @@ function addFile() {
     console.log('En el nivel: ' + (primerIndice + 1) + ' hay: ' + amountFiles[currentLevel - 1] + ' archivos');
 
 }
+
+function sendRequestCreate() {
+    let data = new FormData();
+    // data.append('idInstructor',); //por sesion
+    data.append('nombre', tituloInput.value);
+    data.append('cantNiveles', levelIndex);
+    data.append('costo', priceInput.value);
+    data.append('descripcion', descripcionInput.value);
+    data.append('PorNivel', false);
+    data.append('nombreNiv', false);
+    selectedValues.forEach((value) => {
+        data.append('categorias[]', value);
+    });
+
+    levelNamesInputs.forEach((value) => {
+        data.append('nombreNiveles[]', value.value);
+    });
+
+    console.log(data);
+
+    fetch('http://localhost:80/DiGITAL/subirCurso/create', {
+        method: 'POST',
+        body: data
+    }).then((response) => {
+        if (!response.ok) {
+            throw response.json();
+        } else {
+            // requestState = true;
+        }
+        return response.json()
+    }).then((response) => {
+        alert(response['msg']);
+        console.log(response['data']);
+    }).catch((error) => {
+        console.log(error);
+        alert(error['msg']);
+    })
+}
+
+
+function sendRequestGet() {
+    let data = [];
+    fetch('http://localhost:80/DiGITAL/admin/category/getAll', {
+        method: 'GET',
+    }).then((response) => {
+        if (!response.ok) {
+            throw response.json();
+        }
+        return response.json();
+    }).then((response) => {
+        data = response['data'];
+        renderCategories(data);
+    }).catch((error) => {
+        console.log(error);
+    });
+}
+
+function renderCategories(data) {
+    data.forEach(element => {
+        let option = document.createElement('option');
+        option.id = element.idCategoria;
+        option.innerHTML = element.nombre;
+        categorySelect.appendChild(option);
+        categories.push(element);
+    });
+}
+
+sendRequestGet();

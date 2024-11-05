@@ -1,0 +1,1 @@
+Debido a que se usa el entorno de XAMPP para manejar el servidor local, no se maneja directamente desde localhost/ si no que se usa el nombre de la carpeta del proyecto por lo que la configuración de la navegación del proyecto contempla que la url empieza localhost/DiGITAL
