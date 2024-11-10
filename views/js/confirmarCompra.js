@@ -2,6 +2,7 @@ var formulario = document.getElementById('formulario');
 var radio = document.getElementsByName('metodo-pago');
 var CreditCard = document.getElementById('information_pay_card');
 let metodoPago = '';
+let totalCost = 0;
 formulario.addEventListener('submit', function (event) {
     event.preventDefault(); // Previene el envío automático del formulario
 })
@@ -31,8 +32,7 @@ function confirmarCompra() {
         return;
     }
 
-    alert('Compra realizada con exito');
-    window.location.href = 'home.view.php';
+    sendRequestBuy(CursoId, totalCost, metodoPago, nivelesId, tipoCompra, nivelesCostos);
 }
 
 function validar() {
@@ -49,4 +49,84 @@ function validar() {
     }
 
     return true;
+}
+
+function sendRequestBuy(_idCurso, _pago, _metodoPago, _nivelesId, _buyType, _nivelesCostos) {
+
+    data = {
+        idCurso: _idCurso,
+        pago: _pago,
+        metodoPago: _metodoPago,
+        nivelesId: _nivelesId,
+        buyType: _buyType,
+        nivelesCostos: _nivelesCostos
+    }
+
+    fetch('http://localhost:80/DiGITAL/courses/buyCourse', {
+        method: 'POST',
+        body: JSON.stringify(data)
+    }).then(response => {
+        if (!response.ok) {
+            throw response.json();
+        }
+        return response.json();
+    }).then(response => {
+        console.log(response);
+    }).catch(response => {
+        alert('error');
+    })
+
+}
+
+const params = new URLSearchParams(window.location.search);
+
+const CursoId = params.get('id');
+const nombre = params.get('nombre');
+const costo = params.get('costo');
+const nivelesNombres = params.get('nivelesNombres')?.split(',').map(String) || [];
+const nivelesId = params.get('nivelesId')?.split(',').map(Number) || [];
+const nivelesCostos = params.get('nivelesCostos')?.split(',').map(Number) || [];
+
+console.log(nombre);
+console.log(costo);
+console.log(nivelesNombres);
+console.log(nivelesId);
+console.log(nivelesCostos);
+let tipoCompra = 0;
+
+if (nivelesNombres.length > 0) {
+    tipoCompra = 2;
+
+    for (let i = 0; i < nivelesId.length; i++) {
+        totalCost += nivelesCostos[i];
+
+        let container = document.getElementById('item-container');
+        let item = document.createElement('div');
+        item.classList.add('item');
+        item.innerHTML = `
+                            <br>
+                            <label id='product-name' style="margin-right: 30px;">${nivelesNombres[i]}
+                            </label>
+                            <label id='product-cost' style="font-weight: bold;">$${nivelesCostos[i]}</label>
+                            <br>
+                            <br>
+                            <br>`;
+        container.appendChild(item);
+    }
+} else {
+    tipoCompra = 1;
+
+    totalCost = costo;
+    let container = document.getElementById('item-container');
+    let item = document.createElement('div');
+    item.classList.add('item');
+    item.innerHTML = `
+                        <br>
+                        <label id='product-name' style="margin-right: 30px;">${nombre}
+                        </label>
+                        <label id='product-cost'style="font-weight: 600;">$${costo}</label>
+                        <br>
+                        <br>
+                        <br>`;
+    container.appendChild(item);
 }

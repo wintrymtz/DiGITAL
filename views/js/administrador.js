@@ -124,7 +124,6 @@ function renderCategories(data) {
         categories.push(element);
     });
 }
-
 sendRequestGet();
 
 select.addEventListener('change', (e) => {

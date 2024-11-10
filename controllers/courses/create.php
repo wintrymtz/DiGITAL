@@ -21,34 +21,39 @@ if(!isset($_POST['nombre'])){
 
 $body = json_decode($json, true);
 
-    $idInstructor = $_SESSION['id'];
-    $nombre = $_POST['nombre'];
-    $cantNiveles = $_POST['cantNiveles'];
+$idInstructor = $_SESSION['id'];
+$nombre = $_POST['nombre'];
+$cantNiveles = $_POST['cantNiveles'];
+$descripcion = $_POST['descripcion'];
+$categorias = $_POST['categorias'];
+
+if($_POST['PorNivel'] === 'true'){
+    $PorNivel = 1;
+    $costoNiveles = $_POST['precioNiveles'];
+    $costo = 0;
+} else{
+    $PorNivel = 0;
+    $costoNiveles = null;
     $costo = $_POST['costo'];
-    $descripcion = $_POST['descripcion'];
-    $categorias = $_POST['categorias'];
+}
 
-    if($_POST['PorNivel'] === 'true'){
-        $PorNivel = 1;
-        $costoNivel = $_POST['costoNivel'];
-    } else{
-        $PorNivel =0;
-        $costoNivel = null;
-    }
-    $foto = null;
+//imagen del curso
+$data = file_get_contents($_FILES['image']['tmp_name']);
+$mimeType = $_FILES['image']['type'];
 
-    //NIVELES
-    $nombreNiveles = $_POST['nombreNiveles'];
+//NIVELES
+$nombreNiveles = $_POST['nombreNiveles'];
+
+$archivosNiveles = $_FILES['archivosNiveles'];
 
 $Instruccion = 'INSERT';
-
 $errors = array();
 
 try{
     if(empty($errors)){
         
         //Creamos el curso en su respectiva tabla
-            $query = 'CALL sp_Course(:instruccion, :idInstructor, null, :nombre, :cantidadNiveles, :costo, :descripcion, :foto, :PorNivel, null, null)';
+            $query = 'CALL sp_Course(:instruccion, :idInstructor, null, :nombre, :cantidadNiveles, :costo, :descripcion, :foto, :mimetype, :PorNivel, null, null, null)';
             $insert = $db->query($query, [
                 'instruccion' => $Instruccion,
                 'idInstructor' => $idInstructor,
@@ -56,32 +61,60 @@ try{
                 'cantidadNiveles' => $cantNiveles,
                 'costo' => $costo,
                 'descripcion' => $descripcion,
-                'foto' => $foto,
+                'foto' => $data,
+                'mimetype' => $mimeType,
                 'PorNivel' => $PorNivel,
             ])->find(); //obtiene el id del curso creado
 
             //Referenciamos las categorías seleccionadas con el curso creado
             foreach($categorias as $categoria){
                 $query2 = 'CALL sp_Category(:instruccion, :idCurso, :idCategoria, null, null, null)';
-                $insert2 = $db->query($query2, [
+                $level = $db->query($query2, [
                     'instruccion' => 'ADD',
                     'idCategoria' => $categoria,
                     'idCurso' => $insert['idCurso'],
                 ]);
             }
-
+            
             $i = 0;
              //Referenciamos los niveles creados con el curso creado
              foreach($nombreNiveles as $nombreNivel){
+                if($PorNivel===1){
+                    $costoIndividual = $costoNiveles[$i];
+                } else{
+                    $costoIndividual = null;
+                }
+
                 $i = $i + 1;
-                $query3 = 'CALL sp_Level(:instruccion, null, :idCurso, :nombre, :numero, :costo)';
+                $query3 = 'CALL sp_Level(:instruccion, null, :idCurso, :nombre, :numero, :costo, null, null, null, null, null)';
                 $insert3 = $db->query($query3, [
                     'instruccion' => 'INSERT',
                     'idCurso' => $insert['idCurso'],
                     'nombre' => $nombreNivel,
                     'numero' => $i,
-                    'costo' => $costoNivel,
-                ]);
+                    'costo' => $costoIndividual,
+                ])->find(); //obtiene el id del nivel creador
+
+                $files = $archivosNiveles['tmp_name'][$i - 1];
+
+                $j = 0;
+                foreach($files as $file){
+
+                    $data = file_get_contents($file);
+                    $mimeType = $archivosNiveles['type'][$i-1][$j];
+                    $videoPath = null;
+
+                    $query4 = 'CALL sp_Level(:instruccion, :idNivel, null, null, null, null, :archivo, :mimeType, :videoPath, null, null)';
+                    $insert4 = $db->query($query4, [
+                        'instruccion' => 'ADD_FILE',
+                        'idNivel' => $insert3['idNivel'],
+                        'archivo' => $data,
+                        'mimeType' => $mimeType,
+                        'videoPath' => $videoPath,
+                    ]);
+
+                    $j = $j + 1;
+                }
             }
 
 
@@ -98,7 +131,9 @@ try{
         $response["success"] = true;
         $response["errors"] = [];
         $response["msg"] = 'Curso creado correctamente!';
-        $response['data'] = $insert2;
+        $response['data'] = 0;
+        // $response['data'] = $archivosNiveles['tmp_name'][1][0];
+        //                                     //propiedad [nivelIndex] [archivo index]
 
         echo json_encode($response);
         return;

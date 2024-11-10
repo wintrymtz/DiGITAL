@@ -5,10 +5,10 @@
         <a href="<?=getProjectRoot("/")?>">
             <img class="logo" src="views/img/logo_v2.jpg">
         </a>
-        <form class="search-form" action="<?=getProjectRoot("/buscar")?>">
+        <form method="GET" class="search-form" action="<?=getProjectRoot("/buscar")?>">
             <div class="search">
                 <span class=" search-icon material-symbols-outlined">search</span>
-                <input class="search-input" type="search" placeholder="Buscar curso">
+                <input name="query" class="search-input" type="search" placeholder="Buscar curso">
             </div>
         </form>
         <nav class="nav-header">

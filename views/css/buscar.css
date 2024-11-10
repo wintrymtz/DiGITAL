@@ -50,9 +50,9 @@ span:hover {
 }
 
 .result {
-    position: relative;
     display: flex;
     padding: 5px 20px 0px 0px;
+    justify-content: space-between;
     margin-top: 15px;
     margin-bottom: 15px;
     background-color: white;
@@ -82,7 +82,8 @@ span:hover {
 }
 
 .description-container {
-    padding-left: 25px;
+    padding-left: 0px;
+    width: 100%;
 }
 
 .result p {
@@ -94,7 +95,13 @@ span:hover {
     font-size: 15px;
 }
 
+.rc {
+    display: flex;
+    width: 500px;
+}
+
 .image-container {
+    display: inline;
     padding: 5px;
     padding-left: 10px;
 }

@@ -51,6 +51,16 @@ include('partials/nav.php');
                                     </div>
                                 </div>
                             </span>
+                            <span class="price-options">
+                                <span>
+                                    <input id="precioTotal" type="radio" value="precioTotal" name="precioTipo" checked>
+                                    <label for="precioTotal">Precio Total</label>
+                                </span>
+                                <span>
+                                    <input id="precioIndividual" type="radio" value="precioIndividual" name="precioTipo">
+                                    <label for="precioIndividual">Precio Por Nivel</label>
+                                </span>
+                            </span>
                         </div>
 
                         <li>
@@ -65,81 +75,31 @@ include('partials/nav.php');
                                         attach_file
                                     </span>
                                 </label>
-                                <div>
-                                    <!-- <label>Costo:</label> -->
-                                    <!-- <input id="Gratis" type="radio" value="Gratis" name="precio-1" required>
-                                    <label for="Gratis">Gratis</label>
-
-                                    <input id="Pago" type="radio" value="Pago" name="precio-1" required>
-                                    <label for="Pago">Pago</label> -->
-
-                                    <label for="precio-1">Precio: $</label>
-                                    <input name="precio" id="precio-1" class="precio" type="text" placeholder="00.00"
+                                <div class ="div-price">
+                                    <label class="precio" for="precio-1">Precio:</label>
+                                    <h5>$</h5>
+                                    <input id="precio-1" name="precio" class="precio" type="text" placeholder="00.00"
                                         style="width: 100px; height: 25px;">
                                 </div>
-                                <div name="content-1" class="level-content">
-                                    <div class="content-element">
+                                <div id="content-1" class="level-content">
+                                    <!-- <div class="content-element">
                                         <a href="#">
                                             <h6>CursoVideo.mp4</h6>
                                         </a>
-                                    </div>
-                                    <div class="content-element">
-                                        <a href="#">
-                                            <h6>Variables.pdf</h6>
-                                        </a>
-                                    </div>
-                                    <div class="content-element">
-                                        <a href="#">
-                                            <h6>www.enseñame.com</h6>
-                                        </a>
-                                    </div>
-                                    <div class="content-element">
-                                        <a href="#">
-                                            <h6>referencia.jpg</h6>
-                                        </a>
-                                    </div>
-                                    <div class="content-element">
-                                        <a href="#">
-                                            <h6>Instrucciones</h6>
-                                        </a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </li>
-                        <!-- <li>
-                            <div class="level">
-                                <input name="titulo-nivel" type="text" placeholder="Nombre del nivel" required>
-                                <span class="material-symbols-outlined">
-                                    attach_file
-                                </span>
-                                <div class="level-content">
-                                    <div class="content-element">
-                                        <h6>CursoVideo.mp4</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </li> -->
                     </ol>
                 </div>
             </div>
             <div class="right-side">
                 <div class="right-side-up">
                     <div class="upload-image">
-                        <!--
-                        <img src="https://i.pinimg.com/564x/c9/d2/b0/c9d2b014b12a0333162eef4584e8f657.jpg" height="180"
-                            width="320" style="display: block;">
-
-                        <input type="file" id="upload-image-btn">
-                        <label for="upload-image-btn" class="upload-certificate-label">
-                            Agregar portada
-                            <span class="material-symbols-outlined">
-                                add_photo_alternate
-                            </span>
-                        </label> -->
 
                         <label for="file" class="custum-file-upload">
                             <div class="icon">
-                                <svg viewBox="0 0 24 24" fill="" xmlns="http://www.w3.org/2000/svg">
+                                <svg id="file-icon" viewBox="0 0 24 24" fill="" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                     <g id="SVGRepo_iconCarrier">
@@ -149,6 +109,7 @@ include('partials/nav.php');
                                     </g>
                                 </svg>
                             </div>
+                            <img id="course-image" src="" height = 115.2 style="display:none">
                             <div class="text">
                                 <span>Agregar portada</span>
                             </div>
@@ -162,7 +123,7 @@ include('partials/nav.php');
                     <hr>
                     <div class="cost">
                         <label for="costo">Precio: $</label>
-                        <input class="precio" id="costo" type="text" placeholder="00.00">
+                        <input class="precio2" id="costo" type="text" placeholder="00.00">
                     </div>
                     <hr>
 

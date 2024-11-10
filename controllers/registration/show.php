@@ -21,14 +21,24 @@ try{
 
         unset($email);
 
+        $data =[
+            'nombre' => $user['nombre'],
+            'email' => $user['email'] , 
+            'apellido' => $user['apellido'], 
+            'genero' => $user['genero'], 
+            'fechaNacimiento' => $user['fechaNacimiento'], 
+            'foto' => base64_encode($user['foto']), 
+            'rol' => $user['rol']  
+        ];
+
         //Guardar datos y mandarlos de vuelta en la respuesta
 
         if($user){
             $response = [];
             $response["success"] = true;
             $response["errors"] = [];
-            $response['data'] = $user;
-            $response["msg"] = 'Sesion iniciada correctamente';
+            $response['data'] = $data;
+            $response["msg"] = 'Datos obtenidos correctamente';
             echo json_encode($response);
             return;
         } else{

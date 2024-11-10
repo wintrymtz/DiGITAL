@@ -6,14 +6,14 @@ include('partials/nav.php');
     <div class="container">
         <!-- Menú lateral con los niveles del curso -->
         <aside class="sidebar">
-            <h2 class="course-title">Título del Curso</h2>
-            <ul class="course-menu">
-                <li><a href="#" class="active"> Nivel 1: Introducción <label>$10</label> <input type="checkbox"></a>
-                </li>
-                <li><a href="#">Nivel 2: Conceptos Básicos <label>$20</label> <input type="checkbox"></a></li>
+            <h2 id="course-title" class="course-title">Título del Curso</h2>
+            <ul id='level-list' class="course-menu">
+                <!-- <li><a href="#" class="active"> Nivel 1: Introducción <label>$10</label> <input type="checkbox"></a>
+                </li> -->
+                <!-- <li><a href="#">Nivel 2: Conceptos Básicos <label>$20</label> <input type="checkbox"></a></li>
                 <li><a href="#">Nivel 3: Aplicaciones <label>$20</label> <input type="checkbox"></a></li>
                 <li><a href="#">Nivel 4: Avanzado <label>$30</label> <input type="checkbox"></a></li>
-                <li><a href="#">Nivel 5: Conclusión <label>$50</label> <input type="checkbox"></a></li>
+                <li><a href="#">Nivel 5: Conclusión <label>$50</label> <input type="checkbox"></a></li> -->
             </ul>
         </aside>
 
@@ -21,13 +21,13 @@ include('partials/nav.php');
         <main class="main-content">
             <!-- Video o imagen del curso -->
             <div class="course-video">
-                <img src="img/FrontEnd.jpg" alt="Imagen del Curso" class="course-image">
+                <img id="course-image" src="img/FrontEnd.jpg" alt="Imagen del Curso" class="course-image">
             </div>
 
             <!-- Descripción general del curso -->
             <div class="course-description">
-                <p>DESCRIPCION.</p>
-                <p>Costo del curso completo: <strong>$450.00</strong></p>
+                <p id='description'>DESCRIPCION.</p>
+                <p>Costo del curso completo: <strong id="inidividual-cost">$450.00</strong></p>
                 <p>Calificación general: ★★★★☆ (4.5/5)</p>
             </div>
 
@@ -49,11 +49,11 @@ include('partials/nav.php');
 
             <!-- Botones para compra o acceso -->
             <div class="course-actions">
-                <button class="buy-button" onclick="buyCourse()">Comprar Curso Completo</button>
-                <!-- Botón para niveles individuales con hover -->
+            <button id="buyComplete" class="buy-button" onclick="buyCourseComplete('<?= getProjectRoot('/confirmarCompra') ?>')">Comprar Curso</button>
+            <!-- Botón para niveles individuales con hover -->
                 <div class="dropdown">
-                    <button class="buy-level-button" onclick="buyCourse()">Comprar Niveles Individuales</button>
-                    <div class="dropdown-content">
+                <button id="buyIndividual" class="buy-button" onclick="buyLevels('<?= getProjectRoot('/confirmarCompra') ?>')">Comprar Niveles</button>
+                <div class="dropdown-content">
                         <ul>
                             <li>Nivel 1: Introducción - $10</li>
                             <li>Nivel 2: Conceptos Básicos - $20</li>

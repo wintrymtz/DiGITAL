@@ -10,9 +10,9 @@ include('partials/nav.php');
             <h2>Cuenta</h2>
             <div class="avatar-inf">
                 <h4>Avatar</h4>
-                <form class="img-form">
-                    <img src="https://i.pinimg.com/564x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg" alt="avatar-icon"
-                        width="200" height="200"></img>
+                <form class="img-form" id="formulario-foto">
+                    <img id="avatar-img" src="https://i.pinimg.com/564x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg" alt="avatar-icon"
+                        width="200" height="200" style="border-radius: 50%"></img>
                     <br>
 
                     <button class="button-type" type="button">
@@ -20,7 +20,7 @@ include('partials/nav.php');
                     </button>
                     <input id="avatar-input" type="file" style="display: none;" accept=".jpg,.png"></input>
 
-                    <input type="submit" value="Confirmar">
+                    <input type="submit" value="Confirmar" onclick="validatePhoto()">
                 </form>
 
             </div>

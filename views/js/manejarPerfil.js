@@ -11,6 +11,9 @@ const formPassword = document.getElementById('formulario-pass')
 const oldPasswordInput = document.getElementById('oldPassword');
 const newPasswordInput = document.getElementById('newPassword');
 
+//Formulario foto
+const formImage = document.getElementById('formulario-foto');
+
 let gb_email;
 
 formulario.addEventListener('submit', function (event) {
@@ -19,6 +22,23 @@ formulario.addEventListener('submit', function (event) {
 
 formPassword.addEventListener('submit', function (event) {
     event.preventDefault(); // Previene el envío automático del formulario debido a que no redirige por el submit
+})
+
+formImage.addEventListener('submit', function (event) {
+    event.preventDefault(); // Previene el envío automático del formulario debido a que no redirige por el submit
+})
+
+document.getElementById('avatar-input').addEventListener('change', (e) => {
+    const file = document.getElementById('avatar-input').files[0];
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            document.getElementById("avatar-img").src = e.target.result; // Asigna el contenido al src de la imagen
+        };
+
+        reader.readAsDataURL(file); // Lee el archivo como una URL de datos
+    }
 })
 
 async function getUser() {
@@ -58,6 +78,8 @@ async function getUser() {
             formulario.gender[0].checked = false;
             formulario.gender[1].checked = false;
     }
+
+    document.getElementById("avatar-img").src = `data:${user.mimeType};base64,${user.foto}`;
 }
 
 async function getSession() {
@@ -208,6 +230,34 @@ async function sendRequest_updatePassword() {
     return requestState;
 }
 
+function sendRequest_updatePhoto(image) {
+    let formData = new FormData();
+    formData.append('image', image);
+
+
+    fetch('http://localhost:80/DiGITAL/user/update-photo', {
+        method: 'POST',
+        body: formData
+    }).then((response) => {
+
+        if (!response.ok) {
+            requestState = false;
+            throw response.json();
+        } else {
+            requestState = true;
+        }
+        return response.json()
+    }).then((response) => {
+        alert(response['msg']);
+        // console.log('respuesta', response);
+    }).catch((error) => {
+        console.log('error', error);
+    }).then(() => {
+        console.log('terminó');
+    });
+
+}
+
 async function updateUser() {
 
     if (!validateInfoForm()) {
@@ -305,5 +355,12 @@ function validatePassForm() {
 
     return true;
 }
+
+function validatePhoto() {
+    let file = document.getElementById('avatar-input').files[0];
+    sendRequest_updatePhoto(file);
+    document.getElementById('avatar-input').value = "";
+}
+
 
 getUser();

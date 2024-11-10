@@ -43,20 +43,25 @@ include('partials/nav.php');
                     <label style="font-size: 20px; font-weight: bold;">$450.20</label>
                     <br>
                     <hr>
-                    <label>Detalles:</label>
+                    <label style="font-size: 20px; font-weight: bold;">Detalles:</label>
                     <br>
                     <br>
-                    <br>
-                    <div class="item">
-                        <img src="img/FrontEnd.jpg" width="100  ">
-                        <br>
-                        <label style="margin-right: 30px;">Frontend para principiantes
-                        </label>
-                        <label>$250.20</label>
-                        <br>
-                        <br>
-                        <br>
+                    <div id="item-container">
+                        <!-- <div class="item">
+                            <img src="img/FrontEnd.jpg" width="100  ">
+                            <br>
+                            <label id='product-name' style="margin-right: 30px;">Error Titulo
+                            </label>
+                            <label id='product-cost'>$250.20</label>
+                            <br>
+                            <br>
+                            <br>
+                        </div> -->
                     </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div>
                     <input style="width: 250px;" type="submit" value="Confirmar compra" onclick="confirmarCompra()">
                 </div>
 

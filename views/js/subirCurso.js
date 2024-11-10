@@ -6,6 +6,7 @@ let categorySelect = document.getElementById('category-list');
 let levelNamesInputs = [];
 let levelPriceInputs = [];
 let selectedValues;
+let porNivel = false;
 
 let categories = [];
 
@@ -38,11 +39,65 @@ let levelIndex = 1;
 //Contenedor de elementos
 let divArchivos = document.getElementById('levelContent')
 
+document.getElementsByName("precioTipo").forEach((radio) => {
+    radio.addEventListener('change', (e) => {
+        console.log(e.target.value);
+        levelPriceInputs = document.getElementsByName('precio');
+
+        if (e.target.value === "precioTotal") {
+            porNivel = false;
+            // Crear un nuevo elemento de estilo
+            const style = document.createElement('style');
+            style.id = 'precioEstilo';
+            style.innerHTML = `
+                 .div-price {
+                    display:none;
+                }
+              `;
+            levelPriceInputs.forEach((input) => {
+                input.removeAttribute('required');
+            })
+            document.head.appendChild(style);
+        } else {
+            porNivel = true;
+            // Crear un nuevo elemento de estilo
+            const style = document.createElement('style');
+            style.id = 'precioEstilo';
+            style.innerHTML = `
+                 .div-price {
+                display: flex;
+                     align-items: center;
+                }
+              `;
+            levelPriceInputs.forEach((input) => {
+                input.setAttribute('required', '');
+            })
+            document.head.appendChild(style);
+        }
+    });
+});
+
 
 categorySelect.addEventListener('change', () => {
     selectedValues = Array.from(categorySelect.selectedOptions).map(option => option.id);
     console.log('Valores seleccionados:', selectedValues);
 });
+
+imageFileInput.addEventListener('change', (e) => {
+    const file = imageFileInput.files[0];
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            document.getElementById("course-image").src = e.target.result; // Asigna el contenido al src de la imagen
+            document.getElementById("course-image").style.display = 'block';
+            document.getElementById('file-icon').style.display = 'none';
+        };
+
+        reader.readAsDataURL(file); // Lee el archivo como una URL de datos
+    }
+    console.log(imageFileInput.files);
+})
 
 addLevelBtn.addEventListener('click', function () {
     console.log('click');
@@ -58,12 +113,13 @@ addLevelBtn.addEventListener('click', function () {
                                         attach_file
                                     </span>
                                 </label>
-                                 <div>
-                                    <label for="precio-${levelIndex}">Precio: $</label>
+                                <div class ="div-price">
+                                    <label class="precio" for="precio-${levelIndex}">Precio:</label>
+                                                                        <h5>$</h5>
                                     <input name="precio" id="precio-${levelIndex}" class="precio" type="text" placeholder="00.00"
                                         style="width: 100px; height: 25px;">
                                 </div>
-                                <div class="level-content">
+                                <div id=content-${levelIndex} class="level-content">
                                 </div>
                             </div>
                         `;
@@ -81,9 +137,13 @@ formulario.addEventListener('submit', function (event) {
     event.preventDefault(); // Previene el envío automático del formulario debido a que no redirige por el submit
 })
 
+levelFileInput.addEventListener('click', function () {
+    this.value = ''; // Vacía el valor antes de abrir el selector de archivos
+});
+
 levelFileInput.addEventListener('change', function () {
     console.log('archivo subido')
-    addFile();
+    addFile(levelFileInput.files[0]);
     tooglePopup();
 })
 
@@ -115,7 +175,7 @@ function uploadCourse() {
     console.log(levelNamesInputs.length);
 
     levelPriceInputs = document.getElementsByName('precio');
-    console.log(levelPriceInputs.length);
+    // console.log(levelPriceInputs.length);
 
 
     if (!validateCourse()) {
@@ -124,12 +184,7 @@ function uploadCourse() {
 
 
 
-
-
     sendRequestCreate();
-    // alert('El curso se ha subido correctamente');
-    // window.location.href = 'ventasGeneral.view.php';
-
 }
 
 function validateCourse() {
@@ -141,6 +196,7 @@ function validateCourse() {
     for (var i = 0, length = levelPriceInputs.length; i < length; i++) {
         levelPriceInputs[i].setCustomValidity('');
     }
+
     tituloInput.setCustomValidity('');
     descripcionInput.setCustomValidity('');
     priceInput.setCustomValidity('');
@@ -188,25 +244,36 @@ function validateCourse() {
 }
 
 function validateLevels() {
+    let validate = true;
 
     //Revisamos cada uno de los inputs de nombre
     for (var i = 0, length = levelNamesInputs.length; i < length; i++) {
         if (levelNamesInputs[i].value.length > 80) {
             levelNamesInputs[i].setCustomValidity('El titulo no puede exceder de 80 caracteres');
             levelNamesInputs[i].reportValidity();
-            return false;
+            validate = false;
         }
     }
+
+    let j = 0;
+    filesArray.forEach((levelArray) => {
+        i++;
+        if (levelArray.length < 1) {
+            levelNamesInputs[j].setCustomValidity('Cada nivel debe de tener al menos 1 recurso');
+            levelNamesInputs[j].reportValidity();
+            validate = false;
+        }
+    });
 
     //Revisamos cada uno de los inputs de precio
     for (var i = 0, length = levelPriceInputs.length; i < length; i++) {
         if (!validatePrice(levelPriceInputs[i])) {
             console.log('error precio de nivel')
-            return false;
+            validate = false;
         }
         console.log('error precio de nivel')
     }
-    return true;
+    return validate;
 }
 
 function validateImage() {
@@ -263,7 +330,7 @@ function checkButtonIndex() {
     });
 }
 
-function addFile() {
+function addFile(file) {
     console.log(filesArray);
 
     amountFiles[currentLevel - 1] += 1;
@@ -272,7 +339,26 @@ function addFile() {
 
     console.log(primerIndice);
 
-    filesArray[primerIndice].push('hola');
+    const level = document.getElementById(`content-${currentLevel}`);
+
+    let newResource = document.createElement('div');
+    newResource.classList.add('content-element');
+    newResource.id = currentLevel;
+    newResource.innerHTML = `<a>
+                                <h6>${file.name}</h6>
+                            </a>`;
+    level.appendChild(newResource);
+
+    newResource.addEventListener('click', (e) => {
+        // console.log(e.target.textContent);
+        let currentIndex = newResource.id - 1;
+        filesArray[currentIndex] = filesArray[currentIndex].filter(file => file.name !== e.target.textContent);
+        amountFiles[currentIndex] -= 1;
+        newResource.remove();
+        console.log(filesArray);
+    });
+
+    filesArray[primerIndice].push(file);
 
     console.log('En el nivel: ' + (primerIndice + 1) + ' hay: ' + amountFiles[currentLevel - 1] + ' archivos');
 
@@ -285,17 +371,29 @@ function sendRequestCreate() {
     data.append('cantNiveles', levelIndex);
     data.append('costo', priceInput.value);
     data.append('descripcion', descripcionInput.value);
-    data.append('PorNivel', false);
+    data.append('PorNivel', porNivel);
     data.append('nombreNiv', false);
+    data.append('image', imageFileInput.files[0]);
+
     selectedValues.forEach((value) => {
         data.append('categorias[]', value);
     });
 
-    levelNamesInputs.forEach((value) => {
-        data.append('nombreNiveles[]', value.value);
+    levelNamesInputs.forEach((input) => {
+        data.append('nombreNiveles[]', input.value);
     });
 
-    console.log(data);
+    levelPriceInputs.forEach((input) => {
+        // console.log(input.value);
+        data.append('precioNiveles[]', input.value)
+    });
+
+    filesArray.forEach((levelArray, levelIndex) => {
+        levelArray.forEach((levelFile, fileIndex) => {
+            // Añade cada archivo al FormData con nombres estructurados para $_FILES
+            data.append(`archivosNiveles[${levelIndex}][${fileIndex}]`, levelFile);
+        });
+    });
 
     fetch('http://localhost:80/DiGITAL/subirCurso/create', {
         method: 'POST',
@@ -313,7 +411,7 @@ function sendRequestCreate() {
     }).catch((error) => {
         console.log(error);
         alert(error['msg']);
-    })
+    });
 }
 
 
@@ -343,5 +441,14 @@ function renderCategories(data) {
         categories.push(element);
     });
 }
+
+const style = document.createElement('style');
+style.id = 'precioEstilo';
+style.innerHTML = `
+     .div-price {
+        display:none;
+    }
+  `;
+document.head.appendChild(style);
 
 sendRequestGet();
