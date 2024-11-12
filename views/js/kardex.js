@@ -41,7 +41,7 @@ function renderCourses(data) {
 
         const mysqlTimestamp3 = course.fechaTerminado;
         let fechaTerminado = timeStampToDate(mysqlTimestamp3)
-        let url = baseUrl + '?id=' + course.idCurso;
+        let url = baseUrl + course.idCurso;
 
         element.innerHTML = `
         <tr>

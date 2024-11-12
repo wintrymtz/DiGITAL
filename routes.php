@@ -22,6 +22,8 @@ return [
     '/courses/get' => 'controllers/courses/getCourse.php',
     '/courses/buyCourse' => 'controllers/courses/buyCourse.php',
     '/courses/kardex' => 'controllers/courses/showMine.php',
+    
+    '/levels/get' => 'controllers/levels/show.php',
 
     '/kardex' => 'controllers/kardex.php',
     '/ventasGeneral' => 'controllers/ventasGeneral.php',
@@ -36,7 +38,10 @@ return [
     '/buscar' => 'controllers/buscar.php',
     '/comprarCurso' => 'controllers/comprarCurso.php',
     '/confirmarCompra' => 'controllers/confirmarCompra.php',
+    
     '/chat' => 'controllers/chat.php',
+    '/message/send' => 'controllers/chats/store.php',
+    '/message/get' => 'controllers/chats/show.php',
 ];
 
 // $router->get( '/',  'controllers/index.php');

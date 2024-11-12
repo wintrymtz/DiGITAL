@@ -102,15 +102,18 @@ try{
 
                     $data = file_get_contents($file);
                     $mimeType = $archivosNiveles['type'][$i-1][$j];
+                    $name = $archivosNiveles['name'][$i-1][$j];
+
                     $videoPath = null;
 
-                    $query4 = 'CALL sp_Level(:instruccion, :idNivel, null, null, null, null, :archivo, :mimeType, :videoPath, null, null)';
+                    $query4 = 'CALL sp_Level(:instruccion, :idNivel, null, :nombreArchivo, null, null, :archivo, :mimeType, :videoPath, null, null)';
                     $insert4 = $db->query($query4, [
                         'instruccion' => 'ADD_FILE',
                         'idNivel' => $insert3['idNivel'],
                         'archivo' => $data,
                         'mimeType' => $mimeType,
                         'videoPath' => $videoPath,
+                        'nombreArchivo' => $name,
                     ]);
 
                     $j = $j + 1;

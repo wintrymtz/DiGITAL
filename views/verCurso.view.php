@@ -1,14 +1,14 @@
-<!--
-  Este archivo HTML representa la estructura de la ventana de vista del curso para estudiantes.
-  Se utiliza el framework de CSS Bootstrap 5 para el diseño y la responsividad.
--->
 <?php 
-$boostrap = true;
+$boostrap = true;  
+
 $css = getFile('/verCurso', 'css');
 include('partials/head.php');
 include('partials/nav.php');
  ?>
-
+<!--
+  Este archivo HTML representa la estructura de la ventana de vista del curso para estudiantes.
+  Se utiliza el framework de CSS Bootstrap 5 para el diseño y la responsividad.
+-->
 
   <!-- Contenedor principal -->
   <div class="container-fluid">
@@ -17,13 +17,14 @@ include('partials/nav.php');
       <div class="col-md-3 bg-light sidebar">
         <div class="list-group">
           <!-- Título del curso -->
-          <h4 class="mt-4 mb-3 text-center">Frontend para principiantes</h4>
+          <h4 id="course-name" class="mt-4 mb-3 text-center">Frontend para principiantes</h4>
           <!-- Lista de módulos o secciones -->
-          <a href="#" class="list-group-item list-group-item-action active">Introducción</a>
-          <a href="#" class="list-group-item list-group-item-action">Nivel 1: Conceptos Básicos</a>
-          <a href="#" class="list-group-item list-group-item-action">Nivel 2: Aplicaciones</a>
-          <a href="#" class="list-group-item list-group-item-action">Nivel 3: Avanzado</a>
-          <a href="#" class="list-group-item list-group-item-action">Conclusión</a>
+          <div id="levels-container">
+            <!-- <a href="#" class="list-group-item list-group-item-action">Nivel 1: Conceptos Básicos</a>
+            <a href="#" class="list-group-item list-group-item-action">Nivel 2: Aplicaciones</a>
+            <a href="#" class="list-group-item list-group-item-action">Nivel 3: Avanzado</a>
+            <a href="#" class="list-group-item list-group-item-action">Conclusión</a> -->
+          </div>
         </div>
       </div>
 
@@ -36,19 +37,19 @@ include('partials/nav.php');
         </div>
         <!-- Descripción y materiales adicionales -->
         <div class="mt-4">
-          <label>Instructor:</label><a href="<?=getProjectRoot('/chat')?>">Isaac Nehemías Mata Dominguez</a>
+          <label>Instructor:</label><a id="instructor-name">Isaac Nehemías Mata Dominguez</a>
 
-          <h2>Principios Básicos</h2>
-          <p>
+          <h2 id='level-name'>Principios Básicos</h2>
+          <!-- <p> -->
             <!-- Descripción de la lección -->
-            En este nivel se se enseñará como funciona de manera básica la programación web.
-          </p>
+            <!-- En este nivel se se enseñará como funciona de manera básica la programación web.
+          </p> -->
           <!-- Materiales de descarga -->
           <h5>Materiales Adicionales:</h5>
-          <ul>
-            <li><a href="#">documentacion.pdf</a></li>
+          <ul id='materiales'>
+            <!-- <li><a href="#">documentacion.pdf</a></li>
             <li><a href="#">ejercicios.txt</a></li>
-            <li><a href="#">ejemplo.txt</a></li>
+            <li><a href="#">ejemplo.txt</a></li> -->
           </ul>
         </div>
         <div class="rating-css">
@@ -101,8 +102,11 @@ include('partials/nav.php');
   </div>
 
   <!-- Enlaces a los scripts de Bootstrap 5 -->
+   <script>
+    const urlChat = "<?=getProjectRoot('/chat')?>";
+   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="<?=getProjectRoot('/verCurso')?>"></script>
+  <script src="<?=getFile('/verCurso', 'js')?>"></script>
 </body>
 
 </html>

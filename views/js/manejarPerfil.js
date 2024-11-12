@@ -234,7 +234,7 @@ function sendRequest_updatePhoto(image) {
     let formData = new FormData();
     formData.append('image', image);
 
-
+    console.log(image);
     fetch('http://localhost:80/DiGITAL/user/update-photo', {
         method: 'POST',
         body: formData
@@ -249,7 +249,7 @@ function sendRequest_updatePhoto(image) {
         return response.json()
     }).then((response) => {
         alert(response['msg']);
-        // console.log('respuesta', response);
+        console.log('respuesta', response);
     }).catch((error) => {
         console.log('error', error);
     }).then(() => {

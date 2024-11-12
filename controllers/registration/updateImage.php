@@ -14,6 +14,8 @@ if(!isset($_FILES['image'])){
     return;
 }
 
+
+
 // @list(, , $imtype, ) = getimagesize($_FILES['']['tmp_name']);
 
 // $errors = array();
@@ -34,29 +36,30 @@ if(!isset($_FILES['image'])){
           
 //       }
 
-// echo json_encode($_FILES['image']);
-// return;
-
-
-
 try{
     if(empty($errors)){
 
         $data = file_get_contents($_FILES['image']['tmp_name']);
         $mimeType = $_FILES['image']['type'];
         
+        
             $query = 'CALL sp_User(:instruccion, :idUsuario, :foto, :mimeType)';
             $insert = $db->query($query, [
                 'instruccion' => 'UPDATE_IMAGE',
-                'idUsuario' => 1,
+                'idUsuario' => $_SESSION['id'],
                 'foto' => $data,
                 'mimeType' => $mimeType
-            ]);
+            ])->find();
+
+        $_SESSION['foto'] = $data;
+        $_SESSION['mimeType'] = $mimeType;
+
 
         $response = [];
         $response["success"] = true;
         $response["errors"] = [];
         $response['img'] = base64_encode($data);
+        $response['respuesta'] =  $insert;
         $response["msg"] = 'Se actualizó correctamente la imagen';
 
         echo json_encode($response);

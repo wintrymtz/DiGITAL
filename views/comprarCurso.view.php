@@ -49,7 +49,9 @@ include('partials/nav.php');
 
             <!-- Botones para compra o acceso -->
             <div class="course-actions">
-            <button id="buyComplete" class="buy-button" onclick="buyCourseComplete('<?= getProjectRoot('/confirmarCompra') ?>')">Comprar Curso</button>
+                <?php if (isset($_SESSION['id'])){ ?>
+
+                    <button id="buyComplete" class="buy-button" onclick="buyCourseComplete('<?= getProjectRoot('/confirmarCompra') ?>')">Comprar Curso</button>
             <!-- Botón para niveles individuales con hover -->
                 <div class="dropdown">
                 <button id="buyIndividual" class="buy-button" onclick="buyLevels('<?= getProjectRoot('/confirmarCompra') ?>')">Comprar Niveles</button>
@@ -62,7 +64,11 @@ include('partials/nav.php');
                         </ul>
                     </div>
                 </div>
+                <?php }?>
+          
+                <?php if($rol == 'administrador'){?>
                 <button class="eliminate-button" onclick="eliminarCurso()">DAR DE BAJA</button>
+                <?php }?>
 
                 <br>
                 <br>
