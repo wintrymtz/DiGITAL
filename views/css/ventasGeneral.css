@@ -37,7 +37,8 @@ h1 {
     margin-right: 10px;
 }
 
-.filters input, .filters select {
+.filters input,
+.filters select {
     padding: 8px;
     border: 1px solid #dddddd;
     border-radius: 4px;
@@ -60,7 +61,8 @@ table thead {
     color: white;
 }
 
-table th, table td {
+table th,
+table td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #dddddd;
@@ -76,4 +78,28 @@ tfoot td {
     font-weight: bold;
     font-size: 18px;
     background-color: #f9f9f9;
+}
+
+
+.categories {
+    display: flex;
+    justify-content: left;
+}
+
+.category {
+    margin: 5px 15px 3px 0px;
+    background-color: #007bff;
+    padding: 3px 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+.categories label {
+    font-size: 15px;
+}
+
+span:hover {
+    background-color: rgb(255, 69, 69);
+    color: white;
+    text-decoration: line-through;
 }

@@ -84,3 +84,27 @@ input[type="submit"] {
     color: white;
     border: none
 }
+
+.category:hover {
+    background-color: rgb(255, 69, 69);
+    color: white;
+    text-decoration: line-through;
+}
+
+
+.categories {
+    display: flex;
+    justify-content: left;
+}
+
+.category {
+    margin: 5px 15px 3px 0px;
+    background-color: #007bff;
+    padding: 3px 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+.categories label {
+    font-size: 15px;
+}

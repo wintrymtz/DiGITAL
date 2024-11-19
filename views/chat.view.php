@@ -56,7 +56,13 @@ include('partials/nav.php');
     </div>
 </body>
 <script>
-    const profileImage = "data:<?=$_SESSION['mimeType'] ?>;base64,<?=$_SESSION['foto'] ?>"
+     let profileImage = null;
+    <?php
+    if(isset($_SESSION['foto'])){ ?>
+        profileImage = "data:<?=$_SESSION['mimeType']?>;base64,<?=$_SESSION['foto']?>"
+        <?php
+    } 
+    ?>
 </script>
 <script src="<?=getFile('/chat','js')?>"></script>
 

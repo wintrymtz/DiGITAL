@@ -9,40 +9,26 @@ $json = file_get_contents('php://input');
 $body = json_decode($json, true);
 
 $errors = array();
+$idLevel = $_GET['id'];
 $idUsuario = $_SESSION['id'];
 
 try{
     if(empty($errors)){
 
-        //Busqueda de curso
-        $query = 'CALL sp_Course(:instruccion, :idUsuario, null, null, null, null, null, null, null, null, null, null, null, null, null)';
-        $courses = $db->query($query, [
-             'instruccion' => 'KARDEX',
-             'idUsuario' => $idUsuario,
-            ])->get();
-
-        foreach($courses as &$course){
-           $categorias=[];
-           $query2 ='CALL sp_Category(:instruccion, :idCurso, null, null, null, null)';
-           $categories = $db->query($query2, [
-               'instruccion' => 'SELECT_FROM_COURSE',
-               'idCurso' => $course['idCurso']
-          ])->get();
-    
-          foreach($categories as $category){
-           $categorias[] = $category;
-          }
-          $course['categorias'] = $categorias;       
-        }
-    
-
+        $query = 'CALL sp_Level(:instruccion, :idNivel, null, null, null, null, null, null, null, :idUsuario, null)';
+        $mylevels = $db->query($query, [
+            'instruccion' => 'COMPLETE',
+            'idNivel' => $idLevel,
+            'idUsuario' => $idUsuario
+        ]);
+            
+        unset($idLevel);
         unset($idUsuario);
 
         $response = [];
         $response["success"] = true;
         $response["errors"] = [];
-        $response["msg"] = 'Cursos cagados correctamente';
-        $response['data'] = $courses;
+        $response["msg"] = 'nivel completado';
 
         echo json_encode($response);
         return;

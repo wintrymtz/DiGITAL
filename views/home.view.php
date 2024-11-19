@@ -17,8 +17,25 @@ include('partials/nav.php');
         <section class="contenedor sobre-nosotros">
             <h2 class="titulo">Cursos mejor valorados</h2>
             <div class="contenedor-sobre-nosotros-">
-                <div class="carousel">
-                    <div class="carousel__item">
+                <div id='valorados-carousel' class="carousel">
+                    <!-- <div id='1' class="carousel__item">
+                        <img class="carousel-img" src="views/img/MV.jpg">
+                    </div>
+                    <div id='2' class="carousel__item">
+                        <img class="carousel-img" src="views/img/winApi.jpg">
+                    </div>
+                    <div id='3' class="carousel__item">
+                        <img class="carousel-img" src="views/img/FrontEnd.jpg">
+                    </div> -->
+                </div>
+            </div>
+            </div>
+        </section>
+        <section class="contenedor sobre-nosotros">
+            <h2 class="titulo">Cursos más recientes</h2>
+            <div class="contenedor-sobre-nosotros-">
+                <div id='recientes-carousel' class="carousel">
+                    <!-- <div class="carousel__item">
                         <img class="carousel-img" src="views/img/MV.jpg">
                     </div>
                     <div class="carousel__item">C
@@ -26,7 +43,24 @@ include('partials/nav.php');
                     </div>
                     <div class="carousel__item">
                         <img class="carousel-img" src="views/img/FrontEnd.jpg">
+                    </div> -->
+                </div>
+            </div>
+            </div>
+        </section>
+        <section class="contenedor sobre-nosotros">
+            <h2 class="titulo">Cursos más vendidos</h2>
+            <div class="contenedor-sobre-nosotros-">
+                <div id='vendidos-carousel' class="carousel">
+                    <!-- <div class="carousel__item">
+                        <img class="carousel-img" src="views/img/MV.jpg">
                     </div>
+                    <div class="carousel__item">C
+                        <img class="carousel-img" src="views/img/winApi.jpg">
+                    </div>
+                    <div class="carousel__item">
+                        <img class="carousel-img" src="views/img/FrontEnd.jpg">
+                    </div> -->
                 </div>
             </div>
             </div>
@@ -174,6 +208,9 @@ include('partials/nav.php');
         <h2 class="titulo-final">&copy; DiGITAL | Cursos</h2>
     </footer>
 </body>
+<script>
+const url = "<?=getProjectRoot(null)?>";
+</script>
 <script src="<?= getFile('/home', 'js')?>"></script>
 
 </html>

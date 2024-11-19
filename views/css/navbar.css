@@ -275,3 +275,18 @@ ul li:hover .dropdown {
 .menu-vertical a:hover {
     background-color: hsl(0, 0%, 90%);
 } */
+
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    pointer-events: none;
+    /* Evita que interfiera con el cursor */
+    white-space: nowrap;
+    z-index: 1000;
+    display: block;
+    /* Ocultarlo por defecto */
+}

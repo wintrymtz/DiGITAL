@@ -9,32 +9,17 @@ $json = file_get_contents('php://input');
 $body = json_decode($json, true);
 
 $errors = array();
-$idUsuario = $_SESSION['id'];
+$idCurso = $_GET['id'];
 
 try{
     if(empty($errors)){
 
-        //Busqueda de curso
-        $query = 'CALL sp_Course(:instruccion, :idUsuario, null, null, null, null, null, null, null, null, null, null, null, null, null)';
-        $courses = $db->query($query, [
-             'instruccion' => 'KARDEX',
-             'idUsuario' => $idUsuario,
+        $query = 'CALL sp_Course(:instruccion, null, :idCurso, null, null, null, null, null, null, null, null, null, null, null, null)';
+        $students = $db->query($query, [
+             'instruccion' => 'I_ONE_C',
+             'idCurso' => $idCurso,
             ])->get();
 
-        foreach($courses as &$course){
-           $categorias=[];
-           $query2 ='CALL sp_Category(:instruccion, :idCurso, null, null, null, null)';
-           $categories = $db->query($query2, [
-               'instruccion' => 'SELECT_FROM_COURSE',
-               'idCurso' => $course['idCurso']
-          ])->get();
-    
-          foreach($categories as $category){
-           $categorias[] = $category;
-          }
-          $course['categorias'] = $categorias;       
-        }
-    
 
         unset($idUsuario);
 
@@ -42,7 +27,7 @@ try{
         $response["success"] = true;
         $response["errors"] = [];
         $response["msg"] = 'Cursos cagados correctamente';
-        $response['data'] = $courses;
+        $response['data'] = $students;
 
         echo json_encode($response);
         return;

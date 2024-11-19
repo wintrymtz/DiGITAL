@@ -5,44 +5,54 @@ $db = new Database($config['database']);
 
 header('Content-type: application/json');
 
+
 $json = file_get_contents('php://input');
 $body = json_decode($json, true);
 
+if(!isset($_SESSION['id'])){
+    $response["msg"] = 'Sesion no iniciada';
+    echo json_encode($response);
+return;
+}
+
+
+$idUsuario = $body['idUsuario'];
+$newStatus = $body['status'];
+
 $errors = array();
-$idUsuario = $_SESSION['id'];
+
+
 
 try{
     if(empty($errors)){
 
-        //Busqueda de curso
-        $query = 'CALL sp_Course(:instruccion, :idUsuario, null, null, null, null, null, null, null, null, null, null, null, null, null)';
-        $courses = $db->query($query, [
-             'instruccion' => 'KARDEX',
-             'idUsuario' => $idUsuario,
-            ])->get();
-
-        foreach($courses as &$course){
-           $categorias=[];
-           $query2 ='CALL sp_Category(:instruccion, :idCurso, null, null, null, null)';
-           $categories = $db->query($query2, [
-               'instruccion' => 'SELECT_FROM_COURSE',
-               'idCurso' => $course['idCurso']
-          ])->get();
-    
-          foreach($categories as $category){
-           $categorias[] = $category;
-          }
-          $course['categorias'] = $categorias;       
+        $instruccion = "";
+        if($newStatus == false){
+            $instruccion = "DELETE";
+        } else{
+            $instruccion = "ENABLE";
         }
-    
+        
 
+
+        //Modificamos status
+            $query = 'CALL sp_User(:instruccion, :idUsuario, null, null)';
+            $insert = $db->query($query, [
+                'instruccion' => $instruccion,
+                'idUsuario' => $idUsuario,
+            ]);
+
+            $response["msg"] = $body;
+            echo json_encode($response);
+            return;
+
+        unset($instruccion);
         unset($idUsuario);
 
         $response = [];
         $response["success"] = true;
         $response["errors"] = [];
-        $response["msg"] = 'Cursos cagados correctamente';
-        $response['data'] = $courses;
+        $response["msg"] = 'Se cambió el estatus del usuario correctamente!';
 
         echo json_encode($response);
         return;

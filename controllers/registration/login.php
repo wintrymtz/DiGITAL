@@ -26,6 +26,7 @@ try{
             $_SESSION['id'] = $user['idUsuario'];
             $_SESSION['email'] = $user['email'];
             $_SESSION['nombre'] = $user['nombre'];
+            $_SESSION['apellido'] = $user['apellido'];
             $_SESSION['foto'] = base64_encode($user['foto']);
             $_SESSION['mimeType'] = $user['mimeType'];
             $_SESSION['rol'] = $user['rol'];

@@ -82,3 +82,17 @@ function validateDateOfBirth(dateInput) {
     }
     return true;
 }
+
+function timeStampToDate(timeStamp) {
+    if (timeStamp !== null) {
+        const date = new Date(timeStamp.replace(' ', 'T') + 'Z'); // Convierte a formato ISO
+
+        let year = date.getFullYear();
+        let day = date.getDate();
+        let month = date.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+        return day + ' ' + month + ' ' + year;
+    } else {
+        return 'No definido';
+    }
+
+}

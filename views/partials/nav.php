@@ -14,13 +14,13 @@
         <nav class="nav-header">
             <ul class="nav-options">
                 <li class="li-categories"><a href="#">Categorías</a>
-                    <ul class="dropdown">
-                        <li><a href="#">Cocina</a></li>
+                    <ul id='category-nav-list' class="dropdown">
+                        <!-- <li><a href="#">Cocina</a></li>
                         <li><a href="#">Python</a></li>
                         <li><a href="#">HTML</a></li>
                         <li><a href="#">Machine Learnig</a></li>
                         <li><a href="#">API's</a></li>
-                        <li><a href="#">API's</a></li>
+                        <li><a href="#">API's</a></li> -->
                     </ul>
                 </li>
                 <?php
@@ -67,4 +67,38 @@
                 </li>
             </ul>
         </nav>
+        <script> 
+         let categoryList = document.getElementById('category-nav-list');
+        // console.log(categoryList)
+
+            function _getCategories() {
+                fetch('http://localhost:80/DiGITAL/admin/category/getAll', {
+                    method: 'GET',
+                }).then((response) => {
+                    if (!response.ok) {
+                        throw response.json();
+                    }
+                    return response.json();
+                }).then((response) => {
+                    let data = response['data'];
+                    _renderCategories(data);
+                }).catch((error) => {
+                    console.log(error);
+                });
+            }
+
+        
+        function _renderCategories(data) {
+            data.forEach(element => {
+                let option = document.createElement('li');
+                option.id = 'c_'+ element.idCategoria;
+                option.innerHTML = `<a href="#">${element.nombre}</a>`;
+            
+                categoryList.appendChild(option);
+                // console.log(option);
+            });
+        }
+
+        _getCategories();
+        </script>
     </header>

@@ -21,6 +21,7 @@ const addLevelBtn = document.getElementById('add-level-button');
 //arreglo de botones de archivo (para el index)
 //cada vez que se agrega un nuevo nivel, tambien un nuevo boton con un id en incremento, asi podemos saber el indice del nivel que estamos manejando, principalmente con lo archivos
 let levelButtons = [];
+
 levelButtons[0] = document.getElementById(`upload-content-btn-1`)
 checkButtonIndex();
 
@@ -54,9 +55,9 @@ document.getElementsByName("precioTipo").forEach((radio) => {
                     display:none;
                 }
               `;
-            levelPriceInputs.forEach((input) => {
-                input.removeAttribute('required');
-            })
+            // levelPriceInputs.forEach((input) => {
+            //     input.removeAttribute('required');
+            // })
             document.head.appendChild(style);
         } else {
             porNivel = true;
@@ -69,9 +70,9 @@ document.getElementsByName("precioTipo").forEach((radio) => {
                      align-items: center;
                 }
               `;
-            levelPriceInputs.forEach((input) => {
-                input.setAttribute('required', '');
-            })
+            // levelPriceInputs.forEach((input) => {
+            //     input.setAttribute('required', '');
+            // })
             document.head.appendChild(style);
         }
     });
@@ -182,9 +183,8 @@ function uploadCourse() {
         return;
     }
 
-
-
     sendRequestCreate();
+
 }
 
 function validateCourse() {
@@ -257,16 +257,27 @@ function validateLevels() {
 
     let j = 0;
     filesArray.forEach((levelArray) => {
-        i++;
         if (levelArray.length < 1) {
             levelNamesInputs[j].setCustomValidity('Cada nivel debe de tener al menos 1 recurso');
             levelNamesInputs[j].reportValidity();
             validate = false;
         }
+        let mp4Exists = false;
+        levelArray.forEach(file => {
+            if (file.type === "video/mp4") {
+                mp4Exists = true;
+            }
+        })
+        if (!mp4Exists) {
+            levelNamesInputs[j].setCustomValidity('Cada nivel debe de tener al menos 1 video (.mp4)');
+            levelNamesInputs[j].reportValidity();
+            validate = false;
+        }
+        j++;
     });
 
     //Revisamos cada uno de los inputs de precio
-    for (var i = 0, length = levelPriceInputs.length; i < length; i++) {
+    for (let i = 0, length = levelPriceInputs.length; i < length; i++) {
         if (!validatePrice(levelPriceInputs[i])) {
             console.log('error precio de nivel')
             validate = false;
@@ -395,6 +406,10 @@ function sendRequestCreate() {
         });
     });
 
+    data.forEach((valor, clave) => {
+        console.log(`${clave}:`, valor);
+    });
+
     fetch('http://localhost:80/DiGITAL/subirCurso/create', {
         method: 'POST',
         body: data
@@ -407,7 +422,8 @@ function sendRequestCreate() {
         return response.json()
     }).then((response) => {
         alert(response['msg']);
-        console.log(response['data']);
+        window.location.href = $url + "/ventasGeneral";
+        // console.log(response['data']);
     }).catch((error) => {
         console.log(error);
         alert(error['msg']);

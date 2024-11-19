@@ -1,104 +1,15 @@
-let radioStars = document.getElementsByName('rating1');
-console.log(radioStars);
-let starsOver = false;
-let canVote = true;
-let finalRating = 0;
 let AllLevels = [];
 let MyLevels = [];
 let currentLevel = 0;
-
-radioStars.forEach((rd) => {
-    rd.addEventListener('mouseover', () => {
-        if (canVote) {
-            starsOver = true;
-            checkRating(rd.id);
-        }
-
-    })
-})
-
-
-radioStars.forEach((rd) => {
-    rd.addEventListener('mouseleave', () => {
-        if (canVote) {
-            starsOver = false;
-            checkRating(rd.id);
-        }
-    })
-})
-
-radioStars.forEach((rd) => {
-    rd.addEventListener('click', () => {
-        if (canVote) {
-            alert('Se ha mandado la calificacion');
-            canVote = false;
-        }
-
-    })
-})
-
-function checkRating(calif) {
-    console.log(starsOver);
-    switch (calif) {
-        case '0':
-            radioStars[0].style.color = "black";
-            radioStars[1].style.color = "black";
-            radioStars[2].style.color = "black";
-            radioStars[3].style.color = "black";
-            radioStars[4].style.color = "black";
-            finalRating = 0;
-            break;
-        case '1':
-            radioStars[0].style.color = "yellow";
-            finalRating = 1;
-            break;
-
-        case '2':
-            radioStars[0].style.color = "yellow";
-            radioStars[1].style.color = "yellow";
-            finalRating = 2;
-            break;
-
-        case '3':
-            radioStars[0].style.color = "yellow";
-            radioStars[1].style.color = "yellow";
-            radioStars[2].style.color = "yellow";
-            finalRating = 3;
-            break;
-
-        case '4':
-            radioStars[0].style.color = "yellow";
-            radioStars[1].style.color = "yellow";
-            radioStars[2].style.color = "yellow";
-            radioStars[3].style.color = "yellow";
-            finalRating = 4;
-            break;
-
-        case '5':
-            radioStars[0].style.color = "yellow";
-            radioStars[1].style.color = "yellow";
-            radioStars[2].style.color = "yellow";
-            radioStars[3].style.color = "yellow";
-            radioStars[4].style.color = "yellow";
-            finalRating = 5;
-            break;
-    }
-
-    if (!starsOver) {
-        radioStars[0].style.color = "black";
-        radioStars[1].style.color = "black";
-        radioStars[2].style.color = "black";
-        radioStars[3].style.color = "black";
-        radioStars[4].style.color = "black";
-    }
-}
+let canCalif = false;
+let commented = false;
 
 function sendRequestGet(id) {
-    fetch(`http://localhost:80/DiGITAL/courses/get?id=${id}`)
+    fetch(`http://localhost:80/DiGITAL/courses/getBought?id=${id}`)
         .then(response => {
             return response.json();
         }).then(response => {
-            console.log(response['data']);
+            console.log(response);
             return {
                 id: id,
                 curso: response['data'].curso,
@@ -122,9 +33,9 @@ function sendRequestGetMyLevels(idCurso) {
             })
         }).then(() => {
             currentLevel = MyLevels[0].numero;
-            console.log(currentLevel)
+            // console.log(currentLevel)
 
-            console.log(MyLevels);
+            // console.log(MyLevels);
             renderLevelData(currentLevel);
         }).then(() => {
             MyLevels.forEach((level) => {
@@ -139,6 +50,27 @@ function renderInformation(course, _levels) {
     instrctorElement.textContent = course.nombreInstructor;
     instrctorElement.id = course.idInstructor;
     instrctorElement.href = urlChat + '?id=' + course.idInstructor;
+
+
+
+
+    // en caso de que ya haya calificado
+    if (course.calificacion != null) {
+        document.getElementById("urlCalif").style.background = "gray";
+        // document.getElementById("urlCalif").removeAttribute("href");
+        // document.getElementById("urlCalif").addEventListener("click", () => {
+        //     alert('Ya no puede calificar un curso después de haberlo calificado anteriormente')
+        // })
+        commented = true;
+    }
+
+    let progreso = parseFloat(course.progreso);
+
+    if (progreso >= 100) {
+        // console.log('progreso = ', progreso)
+        // document.getElementById('urlCalif').href = NewSrc;
+        canCalif = true;
+    }
 
     const container = document.getElementById('levels-container');
 
@@ -157,7 +89,7 @@ function renderInformation(course, _levels) {
 
         item.addEventListener('click', () => {
             currentLevel = item.id;
-            console.log(currentLevel)
+            // console.log(currentLevel)
 
             if (renderLevelData(item.id)) {
                 document.querySelectorAll('.list-group-item').forEach(element => {
@@ -166,9 +98,13 @@ function renderInformation(course, _levels) {
                 item.classList.remove('mine');
                 item.classList.add('active');
             }
+            // console.log('my levels', MyLevels)
             MyLevels.forEach((level) => {
-                if (level.numero != currentLevel)
-                    document.getElementById(level.numero).classList.add('mine');
+                if (level.numero != currentLevel) {
+                    // console.log('numero con mine', level.numero, currentLevel);
+                    // console.log(document.getElementById(level.numero));
+                    document.getElementById(level.numero).classList.add('mine')
+                }
             });
         });
     })
@@ -202,18 +138,44 @@ function renderLevelData(index) {
     MyLevels.forEach((a) => {
 
         if (a.numero == index) {
+            if (a.videoPath.length > 0) {
+                let videoPath = "http://localhost" + a.videoPath.split('xampp2/htdocs')[1];
 
-            const mimeType = a.mimeType;
-            const blob = base64ToBlob(a.archivo, mimeType);
-            const url = URL.createObjectURL(blob);
+                document.getElementById("videoSource").src = videoPath;
+                // document.getElementById("MyVideo").id = a.idArchivo;
+                document.getElementById("MyVideo").load();
+                document.getElementById("MyVideo").name = a.idArchivo;
+                document.getElementById('level-name').textContent = a.nombre;
+                let archivo = document.createElement('li');
+                archivo.innerHTML = `
+                <a href="#" id="${a.idArchivo}" >${a.nombreArchivo}</a>`;
+
+                lista.appendChild(archivo);
+
+                // const video = iframeDocument.getElementById('myVideo').addEventListener('play', (e) => {
+                //     console.log(currentLevel);
+
+                //     if (currentLevel <= 0) {
+                //         return;
+                //     }
+
+                //     console.log('play');
+                // })
+
+            } else {
+                const mimeType = a.mimeType;
+                const blob = base64ToBlob(a.archivo, mimeType);
+                const url = URL.createObjectURL(blob);
 
 
-            document.getElementById('level-name').textContent = a.nombre;
-            let archivo = document.createElement('li');
-            archivo.innerHTML = `
-            <a href="${url}"  target="_blank">${a.nombreArchivo}</a>`;
+                document.getElementById('level-name').textContent = a.nombre;
+                let archivo = document.createElement('li');
+                archivo.innerHTML = `
+                <a href="${url}"  target="_blank">${a.nombreArchivo}</a>`;
 
-            lista.appendChild(archivo);
+                lista.appendChild(archivo);
+            }
+
         }
     });
     return true;
@@ -222,4 +184,36 @@ function renderLevelData(index) {
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 sendRequestGet(id);
-console.log('over')
+
+// let NewSrc = document.getElementById('urlCalif').href;
+
+const video = document.getElementById("MyVideo");
+video.addEventListener('play', () => {
+    console.log("se está reproduciendo el video: ", video.name);
+    const idLevel = video.name;
+
+    fetch(`http://localhost:80/DiGITAL/levels/completeLevel?id=${idLevel}`)
+        .then((response) => {
+            return response.json()
+        }).then((response) => {
+            console.log(response);
+        })
+})
+
+document.getElementById('calif-button').addEventListener('click', () => {
+    if (commented) {
+        alert('Ya publicó su comentario, acción no válida');
+        return;
+    }
+
+    if (!canCalif) {
+        alert('requiere terminar el curso para poder calificarlo')
+        return;
+    }
+
+    window.location.href = globalURL + '/calificarCurso' + "?id=" + id;
+
+})
+
+// const iframe = document.getElementById("video");
+// const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;

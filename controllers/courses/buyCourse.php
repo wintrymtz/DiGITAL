@@ -44,7 +44,7 @@ try{
     if(empty($errors)){
 
         //Creamos el curso en su respectiva tabla
-        $query = 'CALL sp_Course(:instruccion, :idUsuario, :idCurso, null, null, :pago, null, null, null, null, null, null, :metodoPago)';
+        $query = 'CALL sp_Course(:instruccion, :idUsuario, :idCurso, null, null, :pago, null, null, null, null, null, null, :metodoPago, null, null)';
         $buyCourse = $db->query($query, [
             'instruccion' => 'BUY_COURSE',
             'idUsuario' => $idUsuario,

@@ -8,44 +8,40 @@ header('Content-type: application/json');
 $json = file_get_contents('php://input');
 $body = json_decode($json, true);
 
-$busqueda = $body['busqueda'];
-
 $errors = array();
+$idUsuario = $_SESSION['id'];
 
 try{
     if(empty($errors)){
 
-        //Busqueda de cursos
-             $query = 'CALL sp_Course(:instruccion, null, null, null, null, null, null, null, null, null, null, :busqueda, null, null, null)';
-             $courses = $db->query($query, [
-                 'instruccion' => 'SEARCH',
-                 'busqueda' => $busqueda,
+        $query = 'CALL sp_Course(:instruccion, :idUsuario, null, null, null, null, null, null, null, null, null, null, null, null, null)';
+        $courses = $db->query($query, [
+             'instruccion' => 'I_ALL_C',
+             'idUsuario' => $idUsuario,
             ])->get();
+
+    foreach($courses as &$course){
+        $categorias=[];
+        $query2 ='CALL sp_Category(:instruccion, :idCurso, null, null, null, null)';
+        $categories = $db->query($query2, [
+            'instruccion' => 'SELECT_FROM_COURSE',
+            'idCurso' => $course['idCurso']
+       ])->get();
     
+       foreach($categories as $category){
+        $categorias[] = $category;
+       }
+    
+       $course['categorias'] = $categorias;
+    }
 
-        unset($busqueda);
 
-
-        foreach($courses as &$course){
-            $categorias=[];
-            $query2 ='CALL sp_Category(:instruccion, :idCurso, null, null, null, null)';
-            $categories = $db->query($query2, [
-                'instruccion' => 'SELECT_FROM_COURSE',
-                'idCurso' => $course['idCurso']
-           ])->get();
-
-           foreach($categories as $category){
-            $categorias[] = $category;
-           }
-
-           $course['categorias'] = $categorias;
-           $course['foto'] = base64_encode($course['foto']);
-        }
+        unset($idUsuario);
 
         $response = [];
         $response["success"] = true;
         $response["errors"] = [];
-        $response["msg"] = 'Cursos cargados correctamente!';
+        $response["msg"] = 'Cursos cagados correctamente';
         $response['data'] = $courses;
 
         echo json_encode($response);

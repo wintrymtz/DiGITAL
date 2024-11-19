@@ -19,6 +19,9 @@ function isUri($route)
 
 function getProjectRoot($new){
     global $url;
+    if($new == null){
+        return $url;
+    }
     return $url.$new;
 }
 

@@ -32,8 +32,12 @@ include('partials/nav.php');
       <div class="col-md-9 main-content">
         <!-- Contenedor del video -->
         <div class="embed-responsive embed-responsive-16by9 mt-4">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            allowfullscreen></iframe>
+          <video  id="MyVideo" class="embed-responsive-item" controls>
+          <source id="videoSource" src="" type="video/mp4">
+            Error al cargar video
+          </video>
+          <!-- <iframe id="video" class="embed-responsive-item" src=""
+            allowfullscreen></iframe> -->
         </div>
         <!-- Descripción y materiales adicionales -->
         <div class="mt-4">
@@ -52,7 +56,13 @@ include('partials/nav.php');
             <li><a href="#">ejemplo.txt</a></li> -->
           </ul>
         </div>
-        <div class="rating-css">
+
+                <!-- Botón para calificar -->
+        <div id='calif-button' class="mt-4">
+          <a id="urlCalif" class="btn btn-primary">Calificar curso</a>
+        </div>
+
+        <div class="rating-css" style="display:none" >
           <h4>Calificar curso</h4>
           <div class="star-icon">
             <input class="radio-star" type="radio">
@@ -67,8 +77,7 @@ include('partials/nav.php');
             <label for="rating5" class="star" name="rating1" id="5">★</label>
           </div>
         </div>
-        <!-- Sección de comentarios -->
-        <div class="mt-5">
+        <div class="mt-5" style="display:none">
           <h4>Comentarios</h4>
           <!-- Formulario para agregar un nuevo comentario -->
           <form>
@@ -104,6 +113,7 @@ include('partials/nav.php');
   <!-- Enlaces a los scripts de Bootstrap 5 -->
    <script>
     const urlChat = "<?=getProjectRoot('/chat')?>";
+    const globalURL= "<?=getProjectRoot(null)?>"
    </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="<?=getFile('/verCurso', 'js')?>"></script>

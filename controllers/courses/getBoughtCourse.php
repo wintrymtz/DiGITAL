@@ -9,40 +9,38 @@ $json = file_get_contents('php://input');
 $body = json_decode($json, true);
 
 $errors = array();
-$idUsuario = $_SESSION['id'];
+$idCurso = $_GET['id'];
 
 try{
     if(empty($errors)){
 
         //Busqueda de curso
-        $query = 'CALL sp_Course(:instruccion, :idUsuario, null, null, null, null, null, null, null, null, null, null, null, null, null)';
-        $courses = $db->query($query, [
-             'instruccion' => 'KARDEX',
-             'idUsuario' => $idUsuario,
-            ])->get();
+        $query = 'CALL sp_Course(:instruccion, :idUsuario, :idCurso, null, null, null, null, null, null, null, null, null, null, null, null)';
+        $course = $db->query($query, [
+             'instruccion' => 'BOUGHT_COURSE',
+             'idCurso' => $idCurso,
+             'idUsuario' => $_SESSION['id'],
+            ])->find();
 
-        foreach($courses as &$course){
-           $categorias=[];
-           $query2 ='CALL sp_Category(:instruccion, :idCurso, null, null, null, null)';
-           $categories = $db->query($query2, [
-               'instruccion' => 'SELECT_FROM_COURSE',
-               'idCurso' => $course['idCurso']
-          ])->get();
-    
-          foreach($categories as $category){
-           $categorias[] = $category;
-          }
-          $course['categorias'] = $categorias;       
-        }
-    
+      
+        $query = 'CALL sp_Level(:instruccion, null, :idCurso, null, null, null, null, null, null, null, null)';
+        $levels = $db->query($query, [
+            'instruccion' => 'SELECT',
+            'idCurso' => $idCurso,
+        ])->get();
 
-        unset($idUsuario);
+            
+        $course['foto'] = base64_encode($course['foto']);
+
+        unset($idCurso);
+        $data['curso'] = $course;
+        $data['niveles'] = $levels;
 
         $response = [];
         $response["success"] = true;
         $response["errors"] = [];
-        $response["msg"] = 'Cursos cagados correctamente';
-        $response['data'] = $courses;
+        $response["msg"] = 'hola!';
+        $response['data'] = $data;
 
         echo json_encode($response);
         return;

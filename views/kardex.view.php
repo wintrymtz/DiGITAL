@@ -9,21 +9,19 @@ include('partials/nav.php');
             <form>
                 <span class="filter-option">
                     <label>Fecha de inscripción</label>
-                    <input type="date">
+                    <input id="firstDate" type="date">
                     <label>-</label>
-                    <input type="date">
+                    <input id="lastDate" type="date">
                 </span>
                 <span class="filter-option">
-                    <select>
-                        <option>categoria1</option>
-                        <option>categoria2</option>
-                        <option>categoria3</option>
+                    <select id="category-select">
+                        <option>Todas</option>
                     </select>
                 </span>
                 <span class="filter-option">
-                    <select>
-                        <option>Terminado</option>
-                        <option>Todos</option>
+                    <select id="status">
+                        <option value=0>Todos</option>
+                        <option value=1>Terminado</option>
                     </select>
                 </span>
                 <span class="filter-option">
@@ -33,11 +31,13 @@ include('partials/nav.php');
                     </select>
                 </span>
 
-                <span class="filter-option">
+                <!-- <span class="filter-option">
                     <input type="submit" value="Filtrar">
-                </span>
+                </span> -->
 
             </form>
+        </div>
+        <div id="categories-container">
         </div>
         <div class="kardex-section  ">
             <div>
@@ -81,8 +81,11 @@ include('partials/nav.php');
     </section>
 </body>
 <script type="text/javascript">
-    var baseUrl = "<?= getProjectRoot('/verCurso?id=') ?>";
+
+    const ProjectURL = "<?= getProjectRoot(null) ?>";
+    const baseUrl = "<?= getProjectRoot('/verCurso?id=') ?>";
 </script>
+<script src="<?=getFile('/validUs','js')?>"></script>
 <script src="<?=getFile('/kardex','js')?>"></script>
 
 </html>

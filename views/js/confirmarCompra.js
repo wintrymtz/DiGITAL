@@ -72,6 +72,8 @@ function sendRequestBuy(_idCurso, _pago, _metodoPago, _nivelesId, _buyType, _niv
         return response.json();
     }).then(response => {
         console.log(response);
+        alert(response['msg']);
+        window.location.href = url + '/kardex';
     }).catch(response => {
         alert('error');
     })

@@ -32,8 +32,8 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
+                <tbody id="student-table">
+                    <!-- <tr>
                         <td>erick@gmail.com</td>
                         <td>Erick Mauricio Castañeda Garza</td>
                         <td>10-ENE-2010</td>
@@ -56,7 +56,7 @@
                         <td>3</td>
                         <td>75%</td>
                         <td style="color:red; padding: 10px; cursor: pointer">bloquear<td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
 
@@ -71,8 +71,8 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
+                <tbody id="instructor-table">
+                    <!-- <tr>
                         <td>maestro1@gmail.com</td>
                         <td>Erick Mauricio Castañeda Garza</td>
                         <td>10-ENE-2010</td>
@@ -95,7 +95,7 @@
                         <td>3</td>
                         <td>$750</td>
                         <td style="color:red; padding: 10px; cursor: pointer">bloquear<td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -106,7 +106,7 @@
                 <div>
                     <label>Editar categoría:</label>
                     <select id='categoryList'>
-                        <option>None</option>
+                        <option id="-1">None</option>
                     </select>
                     <label>o Añadir una nueva:</label>
                     <input id='newCategory' class="textInput" type="text" placeholder="Categoría">
@@ -114,9 +114,11 @@
                 <br>
                 <textarea id='newCategoryDesc' class="textArea" placeholder="Descripcion"></textarea>
                 <br>
-                <input type="submit" onclick='validate()'>
+                <input type="submit" onclick='validate()' value='Guardar'>
+                <input type="submit" onclick='eliminar()' value='Eliminar'>
             </form>
         </div>
     </section>
+    <script src="<?=getFile('/validUs','js')?>"></script>
     <script src="<?=getFile('/administrador', 'js') ?>"></script>
 </body>

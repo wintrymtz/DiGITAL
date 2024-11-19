@@ -5,7 +5,9 @@ $db = new Database($config['database']);
 
 header('Content-type: application/json');
 
+
 $json = file_get_contents('php://input');
+
 
 if(!isset($_POST['nombre'])){
     $response["msg"] = 'Informacion vacía';
@@ -13,11 +15,11 @@ if(!isset($_POST['nombre'])){
     return;
 }
 
-// if(!isset($_SESSION['id'])){
-//     $response["msg"] = 'Sesion no iniciada';
-//     echo json_encode($response);
-// return;
-// }
+if(!isset($_SESSION['id'])){
+    $response["msg"] = 'Sesion no iniciada';
+    echo json_encode($response);
+return;
+}
 
 $body = json_decode($json, true);
 
@@ -49,11 +51,12 @@ $archivosNiveles = $_FILES['archivosNiveles'];
 $Instruccion = 'INSERT';
 $errors = array();
 
+
 try{
     if(empty($errors)){
         
         //Creamos el curso en su respectiva tabla
-            $query = 'CALL sp_Course(:instruccion, :idInstructor, null, :nombre, :cantidadNiveles, :costo, :descripcion, :foto, :mimetype, :PorNivel, null, null, null)';
+            $query = 'CALL sp_Course(:instruccion, :idInstructor, null, :nombre, :cantidadNiveles, :costo, :descripcion, :foto, :mimetype, :PorNivel, null, null, null, null, null)';
             $insert = $db->query($query, [
                 'instruccion' => $Instruccion,
                 'idInstructor' => $idInstructor,
@@ -104,17 +107,33 @@ try{
                     $mimeType = $archivosNiveles['type'][$i-1][$j];
                     $name = $archivosNiveles['name'][$i-1][$j];
 
-                    $videoPath = null;
+                    if($mimeType == "video/mp4"){
+                        $newRoot = $_SERVER['DOCUMENT_ROOT'].getProjectRoot('/videos/');
+                        // $name = pathinfo(basename($file), PATHINFO_FILENAME) . '.mp4';
+                        $videoPath = $newRoot.$insert3['idNivel']."_".$name;
+                        move_uploaded_file($file, $videoPath);
 
-                    $query4 = 'CALL sp_Level(:instruccion, :idNivel, null, :nombreArchivo, null, null, :archivo, :mimeType, :videoPath, null, null)';
-                    $insert4 = $db->query($query4, [
-                        'instruccion' => 'ADD_FILE',
-                        'idNivel' => $insert3['idNivel'],
-                        'archivo' => $data,
-                        'mimeType' => $mimeType,
-                        'videoPath' => $videoPath,
-                        'nombreArchivo' => $name,
-                    ]);
+                        $query4 = 'CALL sp_Level(:instruccion, :idNivel, null, :nombreArchivo, null, null, :archivo, :mimeType, :videoPath, null, null)';
+                        $insert4 = $db->query($query4, [
+                            'instruccion' => 'ADD_FILE',
+                            'idNivel' => $insert3['idNivel'],
+                            'archivo' => null,
+                            'mimeType' => $mimeType,
+                            'videoPath' => $videoPath,
+                            'nombreArchivo' => $name,
+                        ]);
+                    } else{
+
+                        $query4 = 'CALL sp_Level(:instruccion, :idNivel, null, :nombreArchivo, null, null, :archivo, :mimeType, :videoPath, null, null)';
+                        $insert4 = $db->query($query4, [
+                            'instruccion' => 'ADD_FILE',
+                            'idNivel' => $insert3['idNivel'],
+                            'archivo' => $data,
+                            'mimeType' => $mimeType,
+                            'videoPath' => null,
+                            'nombreArchivo' => $name,
+                        ]);
+                    }
 
                     $j = $j + 1;
                 }

@@ -36,8 +36,23 @@ include('partials/nav.php');
             let categories = [];
             let selectedCategories = [];
             let courses = [];
-            let firstDate = document.getElementById('firstDate');
-            let lastDate = document.getElementById('lastDate');
+            let firstDateInput = document.getElementById('firstDate');
+            let lastDateInput = document.getElementById('lastDate');
+
+            let firstDate ="";
+            let lastDate ="";
+
+            firstDateInput.addEventListener('change',(e)=>{
+                firstDate = new Date(firstDateInput.value);
+                console.log(firstDate)
+                filterCourses(courses, true, true)
+            })
+
+            lastDateInput.addEventListener('change',(e)=>{
+                lastDate = new Date(lastDateInput.value);
+                console.log(lastDate)
+                filterCourses(courses, true, true)
+            })
 
         function sendRequestSearch(busqueda){
             fetch('http://localhost:80/DiGITAL/courses/show', {
@@ -54,7 +69,7 @@ include('partials/nav.php');
                 data.forEach((e)=>{
                     courses.push(e);
                 });
-                filterCourses(data, false);
+                filterCourses(data, false, false);
 
             }).catch((error) => {
                 console.log(error);
@@ -62,21 +77,38 @@ include('partials/nav.php');
         }
 
 
-        function filterCourses(data, category){
-            if(!category){
+        function filterCourses(data, category, dateF){
+            console.log(data);
+            if(!category && !dateF){
                 renderCourses(courses);
                 return;
             } else{
-                if(selectedCategories.length <= 0){
-                    renderCourses(courses);
-                return;
-                }
-                let filteredCourses = courses.filter(course => {
-                    // Verifica si al menos una categoría del curso coincide con las seleccionadas
-                    return course.categorias.some(courseCategory => {
-                        return selectedCategories.some(selectedCategory => selectedCategory.idCategoria === courseCategory.idCategoria);
+                let filteredCourses = data;
+
+                if(selectedCategories.length > 0){
+                        filteredCourses = filteredCourses.filter(course => {
+                        // Verifica si al menos una categoría del curso coincide con las seleccionadas
+                        return course.categorias.some(courseCategory => {
+                            return selectedCategories.some(selectedCategory => selectedCategory.idCategoria === courseCategory.idCategoria);
+                        });
                     });
-                });
+                }             
+
+                if(firstDate != ""){
+                    filteredCourses = filteredCourses.filter(course =>{
+                        let fechaCreado = new Date(course.fechaCreacion);
+                        return fechaCreado >= firstDate;
+                    });
+                }
+
+                if(lastDate != ""){
+                    filteredCourses = filteredCourses.filter(course =>{
+                        let fechaCreado = new Date(course.fechaCreacion);
+                        return fechaCreado < lastDate;
+                    });
+                }
+
+
                 renderCourses(filteredCourses);
                 return;
             }
@@ -88,8 +120,10 @@ include('partials/nav.php');
             let allOptions = document.getElementsByClassName('result');
             Array.from(allOptions).forEach(element => element.remove());
 
+
             let mainContainer = document.getElementById("results-container");
             data.forEach(element =>{
+                let chatURL = "<?= getProjectRoot('/chat') ?>?id=" + element.idInstructor;
 
                 let result = document.createElement('div');
                 result.classList.add('result');
@@ -104,7 +138,7 @@ include('partials/nav.php');
                     <p>${element.descripcion}
                     </p>
                     <div class="creator">
-                        <a class="autor" href="chat.view.php">${element.nombreUsuario}
+                        <a class="autor" href="${chatURL}">${element.nombreUsuario}
                         </a>
                     </div>
                     <div class="categories">`

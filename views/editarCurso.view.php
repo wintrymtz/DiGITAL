@@ -40,7 +40,7 @@ include('partials/nav.php');
                             <h4>Niveles del curso:</h4>
                             <span id="icon">
                                 <div id="add-level-button">
-                                    <div style="width: 30px; height: 30px;" tabindex="0" class="plusButton">
+                                    <!-- <div style="width: 30px; height: 30px;" tabindex="0" class="plusButton">
                                         <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
                                             <g mask="url(#mask0_21_345)">
                                                 <path
@@ -48,48 +48,20 @@ include('partials/nav.php');
                                                 </path>
                                             </g>
                                         </svg>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </span>
                             <span class="price-options">
                                 <span>
-                                    <input id="precioTotal" type="radio" value="precioTotal" name="precioTipo" checked>
+                                    <input id="precioTotal" type="radio" value="precioTotal" name="precioTipo" disabled>
                                     <label for="precioTotal">Precio Total</label>
                                 </span>
                                 <span>
-                                    <input id="precioIndividual" type="radio" value="precioIndividual" name="precioTipo">
+                                    <input id="precioIndividual" type="radio" value="precioIndividual" name="precioTipo" disabled>
                                     <label for="precioIndividual">Precio Por Nivel</label>
                                 </span>
                             </span>
-                        </div>
-
-                        <li>
-                            <!--Nivel individual-->
-                            <div class="level">
-                                <input name="titulo-nivel" class="input-title" type="text"
-                                    placeholder="Nombre del nivel" style="margin-bottom: 0;" required>
-                                <input name="up-cont-btn" type="button" id="upload-content-btn-1"
-                                    onclick="tooglePopup()" style="display: none;">
-                                <label for="upload-content-btn-1">
-                                    <span id="icon" class="material-symbols-outlined">
-                                        attach_file
-                                    </span>
-                                </label>
-                                <div class ="div-price">
-                                    <label class="precio" for="precio-1">Precio:</label>
-                                    <h5>$</h5>
-                                    <input id="precio-1" name="precio" class="precio" type="text" placeholder="00.00"
-                                        style="width: 100px; height: 25px;">
-                                </div>
-                                <div id="content-1" class="level-content">
-                                    <!-- <div class="content-element">
-                                        <a href="#">
-                                            <h6>CursoVideo.mp4</h6>
-                                        </a>
-                                    </div> -->
-                                </div>
-                            </div>
-                        </li>
+                        </div> 
                     </ol>
                 </div>
             </div>
@@ -111,9 +83,9 @@ include('partials/nav.php');
                             </div>
                             <img id="course-image" src="" height = 115.2 style="display:none">
                             <div class="text">
-                                <span>Agregar portada</span>
+                                <span>Portada</span>
                             </div>
-                            <input id="file" type="file" accept=".jpg,.png">
+                            <input id="file" type="file" accept=".jpg,.png" disabled>
                         </label>
                         <br>
                         <br>
@@ -145,12 +117,12 @@ include('partials/nav.php');
                     <div class="add-categories">
                         <label style="display: block;">Seleccionar categorías</label>
                         <br>
-                        <select id='category-list' class="select-category" multiple required>
+                        <select id='category-list' class="select-category" multiple disabled>
                         </select>
                     </div>
                 </div>
                 <div class="right-side-down">
-                    <input type="submit" value="Publicar" onclick="uploadCourse();">
+                    <input type="submit" value="Actualizar" onclick="updateCourse();">
                 </div>
             </div>
         </form>
@@ -158,5 +130,132 @@ include('partials/nav.php');
     <script>
         const $url = "<?=getProjectRoot(null)?>";
     </script>
-    <script src="<?=getFile('/subirCurso', 'js') ?>"></script>
+    <script>
+        
+    let tituloInput=   document.getElementById("titulo");
+    let descripcionInput=   document.getElementById("descripcion");
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    console.log(id)
+    getCourse(id);
+
+    document.getElementById('formulario').addEventListener('submit', function (event) {
+    event.preventDefault(); // Previene el envío automático del formulario debido a que no redirige por el submit
+})
+
+    function getCourse(id){
+        fetch(`http://localhost:80/DiGITAL/courses/get?id=${id}`)
+        .then(response => {
+            return response.json();
+        }).then(response => {
+            console.log(response['data']);
+            renderInformation(response['data'].curso, response['data'].niveles);
+        }).then(() => {
+            console.log('terminó');
+        })
+    }
+
+    function renderInformation(curso, niveles){
+        document.getElementById("titulo").value = curso.nombre;
+
+        document.getElementById("descripcion").value = curso.descripcion;
+        document.getElementById("course-image").src = `data:${curso.mimeType};base64,${curso.foto}`;
+        document.getElementById("course-image").style.display = 'block';
+        document.getElementById('file-icon').style.display = 'none';
+
+        if(curso.PorNivel == 0){
+            document.getElementById('precioTotal').checked = true;
+            document.getElementById("costo").value = curso.costo;
+            document.getElementById("costo").disabled = true;
+        } else{
+            document.getElementById('precioIndividual').checked = true;
+            document.getElementById("costo").disabled = true;
+        }
+
+        levelIndex = 0;
+        niveles.forEach((nivel)=>{
+            console.log('click');
+        // levelIndex += 1;
+         let newLevel = document.createElement('li');
+            newLevel.innerHTML = `
+                            <div class="level">
+                                <input class="input-title" name="titulo-nivel" type="text" value='${nivel.nombre}' style="margin-bottom: 0;" disabled>`
+        if(curso.PorNivel == 1)
+            newLevel.innerHTML +=
+                                `
+                                <div class ="div-price">
+                                    <label class="precio" for="precio-${levelIndex}" disabled>Precio:</label>
+                                                                        <h5>$</h5>
+                                    <input name="precio" id="precio-${levelIndex}" class="precio" type="text" placeholder="00.00"
+                                        style="width: 100px; height: 25px;" disabled>
+                                </div>
+                                <div id=content-${levelIndex} class="level-content">
+                                </div>
+                            </div>
+                        `;
+            let list = document.getElementById('level-list');
+            list.appendChild(newLevel);
+            //agregamos botón y actualizamos eventos
+            let newButton = document.getElementById(`upload-content-btn-${levelIndex}`)
+            // levelButtons.push(newButton);
+            // filesArray.push([]);
+            // amountFiles.push(0);
+            // checkButtonIndex();
+            levelIndex++;
+        })
+    }
+
+function updateCourse(){
+        
+    tituloInput.setCustomValidity('');
+    descripcionInput.setCustomValidity('');
+
+    //Validacion del titulo
+    if (tituloInput.value.length > 80) {
+        tituloInput.setCustomValidity('El titulo no puede exceder de 80 caracteres');
+        tituloInput.reportValidity();
+        return;
+    }
+
+    //validacion de la descripcion
+    if (descripcionInput.value.length > 200) {
+        descripcionInput.setCustomValidity('La descripcion no puede exceder de 200 caracteres');
+        descripcionInput.reportValidity();
+        return;
+    }
+
+    sendUpdateCourse();
+}
+
+function sendUpdateCourse(){
+        
+        let data = new FormData();
+
+        data.append('nombre', tituloInput.value);
+        data.append('descripcion', descripcionInput.value);
+        data.append('idCurso', id);
+
+        fetch('http://localhost:80/DiGITAL/courses/update', {
+        method: 'POST',
+        body: data
+         }).then((response) => {
+        if (!response.ok) {
+            throw response.json();
+        } else {
+            // requestState = true;
+        }
+        return response.json()
+    }).then((response) => {
+
+        // window.location.href = $url + "/ventasGeneral";
+        alert(response['msg']);
+        location.reload();
+
+    }).catch((error) => {
+        console.log(error);
+        alert(error['msg']);
+    });
+}
+    </script>
 </body>

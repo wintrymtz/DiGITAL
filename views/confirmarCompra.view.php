@@ -94,6 +94,9 @@ include('partials/nav.php');
         display: none;
     }
 </style>
+<script>
+    const url = "<?= getProjectRoot(null) ?>";
+</script>
 <script src="<?=getFile('/confirmarCompra','js')?>"></script>
 
 </html>

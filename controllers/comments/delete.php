@@ -5,43 +5,44 @@ $db = new Database($config['database']);
 
 header('Content-type: application/json');
 
+
 $json = file_get_contents('php://input');
+
+if(!isset($_SESSION['id'])){
+    $response["msg"] = 'Sesion no iniciada';
+    echo json_encode($response);
+return;
+}
+
 $body = json_decode($json, true);
 
+$idAdmin = $_SESSION['id'];
+$idComentario = $body['idComentario'];
+$idCurso = $body['idCurso'];
+$causa = $body['causa'];
+
 $errors = array();
-$idCurso = $_GET['id'];
 
 try{
     if(empty($errors)){
+        
+            $query = 'CALL sp_Course(:instruccion, :idComentario, :idCurso, null, null, null, null, null, null, null, null, :causa, null, null, :idAdmin)';
+            $insert = $db->query($query, [
+                'instruccion' => 'DELETE_COMMENT',
+                'idAdmin' => $idAdmin,
+                'idComentario' => $idComentario,
+                'idCurso' => $idCurso,
+                'causa' => $causa,
+            ]);
 
-        //Busqueda de curso
-        $query = 'CALL sp_Course(:instruccion, null, :idCurso, null, null, null, null, null, null, null, null, null, null, null, null)';
-        $course = $db->query($query, [
-             'instruccion' => 'SELECT',
-             'idCurso' => $idCurso,
-            //  'idUsuario' => $_SESSION['id'],
-            ])->find();
-
-     
-
-        $query = 'CALL sp_Level(:instruccion, null, :idCurso, null, null, null, null, null, null, null, null)';
-        $levels = $db->query($query, [
-            'instruccion' => 'SELECT',
-            'idCurso' => $idCurso,
-        ])->get();
-
-            
-        $course['foto'] = base64_encode($course['foto']);
-
+        unset($idAdmin);
+        unset($idComentario);
         unset($idCurso);
-        $data['curso'] = $course;
-        $data['niveles'] = $levels;
 
         $response = [];
         $response["success"] = true;
         $response["errors"] = [];
-        $response["msg"] = 'hola!';
-        $response['data'] = $data;
+        $response["msg"] = 'Se dió de baja el comentario correctamente!';
 
         echo json_encode($response);
         return;
