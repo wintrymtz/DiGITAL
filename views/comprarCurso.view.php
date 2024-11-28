@@ -49,7 +49,6 @@ include('partials/nav.php');
 
             <!-- Botones para compra o acceso -->
             <div class="course-actions">
-                <?php if (isset($_SESSION['id'])){ ?>
 
                     <button id="buyComplete" class="buy-button" onclick="buyCourseComplete('<?= getProjectRoot('/confirmarCompra') ?>')">Comprar Curso</button>
             <!-- Botón para niveles individuales con hover -->
@@ -64,7 +63,6 @@ include('partials/nav.php');
                         </ul> -->
                     </div>
                 </div>
-                <?php }?>
           
                 <?php if($rol == 'administrador'){?>
                 <button class="eliminate-button" onclick="eliminarCurso()">DAR DE BAJA</button>
@@ -85,6 +83,9 @@ include('partials/nav.php');
         </main>
     </div>
 
+    <script>
+        const rol = "<?=$rol?>" ;
+    </script>
     <script src="<?=getFile('/comprarCurso','js')?>"></script>
 </body>
 

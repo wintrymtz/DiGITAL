@@ -51,7 +51,7 @@ try{
                 'mimeType' => $mimeType
             ])->find();
 
-        $_SESSION['foto'] = $data;
+        $_SESSION['foto'] = base64_encode($data);
         $_SESSION['mimeType'] = $mimeType;
 
 

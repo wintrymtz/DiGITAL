@@ -31,6 +31,9 @@ try{
             ]);
     
         $_SESSION['email'] = $newEmail;
+        $_SESSION['nombre'] =$nombre;
+        $_SESSION['nombre'] =$nombre;
+        $_SESSION['apellido'] =$apellido;
 
         unset($nombre);
         unset($apellido);

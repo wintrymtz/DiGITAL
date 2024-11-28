@@ -61,9 +61,18 @@
                             echo 'Sesión no iniciada';
                         }?>                        
                     </ul>
+                    <?php 
+                        if($rol ==='none'){
+                            ?>
                     <div class="btn-iniciarSesion">
                         <a  href="<?=getProjectRoot("/iniciarSesion")?>" class="link-sesion" >Iniciar Sesión</a>
                     </div>
+                    <?php } else{ ?>
+                        <div class="btn-iniciarSesion">
+                        <a  href="<?=getProjectRoot("/iniciarSesion")?>" class="link-sesion" ><?=$_SESSION['nombre'] ?></a>
+                    </div>
+                    <?php
+                    }?>
                 </li>
             </ul>
         </nav>

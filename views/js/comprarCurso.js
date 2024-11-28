@@ -3,6 +3,14 @@ let cursoData;
 let nivelesData = [];
 let nivelesSeleccionados = [];
 
+if (rol === 'none') {
+    document.getElementById("buyIndividual").style.display = "none";
+    document.getElementById("buyComplete").style.display = "none";
+} else {
+    document.getElementById("buyIndividual").style.display = "block";
+    document.getElementById("buyIndividual").style.display = "block";
+}
+
 comments.forEach(function (c) {
     c.addEventListener('click', function () {
         prompt('Razón por la que se elimina:')
@@ -137,6 +145,10 @@ function renderInformation(curso, niveles) {
             stars = 'aún no calificado';
             break;
     }
+
+    if (califcacion == 'NaN') {
+        califcacion = 0;
+    }
     textInput.textContent = 'Calificación general: ' + stars + " " + `${califcacion}/5`;
 
     cursoData = curso;
@@ -207,6 +219,9 @@ function renderComments(data) {
         commentList.appendChild(item);
 
         item.addEventListener(('click'), (e) => {
+            if (rol != 'administrador') {
+                return;
+            }
             let causa = prompt('Razón por la que se elimina:');
             let idUsuario = item.id;
             if (confirm("¿Seguro que quiere dar de baja este comentario?")) {
