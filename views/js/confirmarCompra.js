@@ -1,6 +1,6 @@
 var formulario = document.getElementById('formulario');
-var radio = document.getElementsByName('metodo-pago');
-var CreditCard = document.getElementById('information_pay_card');
+//var radio = document.getElementsByName('metodo-pago');
+//var CreditCard = document.getElementById('information_pay_card');
 let metodoPago = '';
 let totalCost = 0;
 formulario.addEventListener('submit', function (event) {
@@ -8,23 +8,86 @@ formulario.addEventListener('submit', function (event) {
 })
 
 
-radio.forEach((e) => {
-    e.addEventListener('click', () => {
-        // console.log('radio selected', e.value);
-        CreditCard.style.display = 'none';
-        isSelected = true;
-        switch (e.value) {
-            case "PayPal":
-                break;
+// radio.forEach((e) => {
+//     e.addEventListener('click', () => {
+//         // console.log('radio selected', e.value);
+//         CreditCard.style.display = 'none';
+//         isSelected = true;
+//         switch (e.value) {
+//             case "PayPal":
+//                 break;
 
-            case "creditCard":
-                CreditCard.style.display = 'block';
-                break;
+//             case "creditCard":
+//                 CreditCard.style.display = 'block';
+//                 break;
+//         }
+
+//         metodoPago = e.value;
+//     })
+// })
+
+console.log("No se ha seleccionado metodo de pago");
+console.log(metodoPago);
+
+// Configurar botón de PayPal
+function configurarBotonPayPal() {
+    paypal.Buttons({
+        
+        fundingSource: paypal.FUNDING.PAYPAL, // Para el botón de PayPal
+        createOrder: (data, actions) => {
+            
+            metodoPago = "Paypal";
+            console.log(metodoPago);
+
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalCost.toFixed(2)
+                    }
+                }]
+            });
+        },
+        onApprove: (data, actions) => {
+            return actions.order.capture().then(function (details) {
+                alert('Pago con PayPal exitoso.');
+                confirmarCompra();
+            });
+        },
+        onError: (err) => {
+            console.error('Error con PayPal:', err);
+            alert('Ocurrió un problema con PayPal.');
         }
+    }).render('#paypal-button-container');
 
-        metodoPago = e.value;
-    })
-})
+    // Configurar el botón para tarjeta de crédito
+    paypal.Buttons({
+        
+        fundingSource: paypal.FUNDING.CARD, // Para el botón de tarjeta de crédito
+        createOrder: (data, actions) => {
+            
+            metodoPago = "creditCard";
+            console.log(metodoPago);
+
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalCost.toFixed(2) // Costo total
+                    }
+                }]
+            });
+        },
+        onApprove: (data, actions) => {
+            return actions.order.capture().then(function (details) {
+                alert('Pago con tarjeta exitoso.');
+                confirmarCompra();
+            });
+        },
+        onError: (err) => {
+            console.error('Error con tarjeta de crédito:', err);
+            alert('Ocurrió un problema con la tarjeta.');
+        }
+    }).render('#paypal-button-container');
+}
 
 function confirmarCompra() {
 
@@ -37,12 +100,12 @@ function confirmarCompra() {
 
 function validar() {
 
-    if (metodoPago === 'creditCard') {
-        if (!formulario.checkValidity()) {
-            formulario.reportValidity();
-            return false;
-        }
-    }
+    // if (metodoPago === 'creditCard') {
+    //     if (!formulario.checkValidity()) {
+    //         formulario.reportValidity();
+    //         return false;
+    //     }
+    // }
 
     if (metodoPago === '') {
         return false;
@@ -132,3 +195,13 @@ if (nivelesNombres.length > 0) {
                         <br>`;
     container.appendChild(item);
 }
+
+
+// Mostrar costo total en la vista
+document.getElementById('costo-total').innerText = `$${totalCost.toFixed(2)}`;
+
+// Configurar el botón PayPal al cargar
+configurarBotonPayPal();
+
+
+

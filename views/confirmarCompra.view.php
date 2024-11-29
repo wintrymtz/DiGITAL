@@ -12,16 +12,19 @@ include('partials/nav.php');
                 </div>
                 <br>
                 <label id="metodo" for="n"> Método de pago:</label>
-                <div class="pay_method_item">
+                <br>
+                <div id="paypal-button-container"></div>
+
+                <!-- <div class="pay_method_item">
                     <input type="radio" id="Paypal" name="metodo-pago" value="Paypal" required>Paypal
                 </div>
                 <div class="pay_method_item">
                     <input type="radio" id="creditCard" name="metodo-pago" value="creditCard" required>Tarjeta de
                     crédito
-                </div>
+                </div> -->
                 <!-- <input type="radio" id="oxxo" name="metodo-pago" value="oxxo">OXXO</radio> -->
 
-                <div id="information_pay_card">
+                <!-- <div id="information_pay_card">
                     <div class="title">
                         <input class="input-title" type="text" placeholder="Nombre" style="width: 250px;  height: 25px;"
                             required>
@@ -35,18 +38,18 @@ include('partials/nav.php');
                         <input class="input-title" type="text" style="width: 150px;  height: 25px;" placeholder="MM/YY"
                             required>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="right-side">
                 <div class="right-side-up">
                     <label style="font-size: 20px; font-weight: bold;"> Costo Total:</label>
-                    <label style="font-size: 20px; font-weight: bold;">$450.20</label>
+                    <label style="font-size: 20px; font-weight: bold;" id="costo-total">$450.20</label>
                     <br>
                     <hr>
                     <label style="font-size: 20px; font-weight: bold;">Detalles:</label>
                     <br>
                     <br>
-                    <div id="item-container">
+                    <div id="item-container"></div>
                         <!-- <div class="item">
                             <img src="img/FrontEnd.jpg" width="100  ">
                             <br>
@@ -56,11 +59,8 @@ include('partials/nav.php');
                             <br>
                             <br>
                             <br>
-                        </div> -->
-                    </div>
-                    <br>
-                    <br>
-                    <br>
+                        </div> -->                    
+                    <br><br><br>
                     <div>
                     <input style="width: 250px;" type="submit" value="Confirmar compra" onclick="confirmarCompra()">
                 </div>
@@ -68,6 +68,7 @@ include('partials/nav.php');
             </div>
         </form>
     </div>
+    
 </body>
 
 <style>
@@ -97,6 +98,7 @@ include('partials/nav.php');
 <script>
     const url = "<?= getProjectRoot(null) ?>";
 </script>
+<script src="https://www.paypal.com/sdk/js?client-id=AQdMVNQY_SgnDXJwvoJDRMPgn135zIgBDka2DD_uoRk-pG5wSTajtAOh5yE2LTKbbu0JCEQeWLtwoJOT&currency=MXN"></script>
 <script src="<?=getFile('/confirmarCompra','js')?>"></script>
 
 </html>
