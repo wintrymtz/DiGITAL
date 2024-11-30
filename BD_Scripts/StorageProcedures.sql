@@ -366,6 +366,8 @@ IN _metodoPago enum('paypal', 'creditCard')
 BEGIN
 	DECLARE v_idNivel INT UNSIGNED;
     DECLARE v_count INT;
+    DECLARE v_prevCost DECIMAL(9,2);
+    DECLARE v_PorNivel BOOL;
 
 	IF _instruccion = 'INSERT' THEN
     INSERT INTO Nivel(idCurso, nombre, numero, costo) VALUES( _idCurso, _nombre, _numero, _costo);
@@ -387,7 +389,17 @@ BEGIN
 		 SELECT 'Este nivel ya había sido comprado' as respuesta;
 		ELSE
 			INSERT INTO NivelComprado(idNivel, idUsuario, metodoPago, pago) 
-			VALUES(_idNivel, _idUsuario, _metodoPago, _costo);
+			VALUES(_idNivel, _idUsuario, _metodoPago, _costo); -- MATCH
+            
+            SELECT PorNivel INTO v_PorNivel FROM Curso WHERE idCurso = _idCurso;
+            IF v_PorNivel = true THEN
+				 SELECT SUM(pago) INTO v_prevCost FROM NivelComprado nc
+											INNER JOIN Nivel n ON n.idNivel = nc.idNivel
+											WHERE _idCurso = n.idCurso AND _idUsuario = nc.idUsuario;
+				UPDATE CursoComprado SET pago = v_prevCost WHERE idCurso = _idCurso AND _idUsuario = idUsuario;
+            END IF;
+           
+            
 		SELECT 'Compra exitosa' as respuesta;
         END IF;
     END IF;

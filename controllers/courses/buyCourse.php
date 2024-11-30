@@ -63,11 +63,12 @@ try{
                 }
 
 
-                $query = 'CALL sp_Level(:instruccion, :idNivel, null, null, null, :pago, null, null, null, :idUsuario, :metodoPago)';
+                $query = 'CALL sp_Level(:instruccion, :idNivel, :idCurso, null, null, :pago, null, null, null, :idUsuario, :metodoPago)';
                 $buyLevels = $db->query($query, [
                 'instruccion' => 'BUY_LEVEL',
                 'idUsuario' => $idUsuario,
                 'idNivel' => $nivelId,
+                'idCurso' => $idCurso,
                 'pago' => $pago,
                 'metodoPago' => $metodoPago,
             ])->find();

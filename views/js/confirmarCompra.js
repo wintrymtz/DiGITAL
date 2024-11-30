@@ -32,10 +32,10 @@ console.log(metodoPago);
 // Configurar botón de PayPal
 function configurarBotonPayPal() {
     paypal.Buttons({
-        
+
         fundingSource: paypal.FUNDING.PAYPAL, // Para el botón de PayPal
         createOrder: (data, actions) => {
-            
+
             metodoPago = "Paypal";
             console.log(metodoPago);
 
@@ -61,10 +61,10 @@ function configurarBotonPayPal() {
 
     // Configurar el botón para tarjeta de crédito
     paypal.Buttons({
-        
+
         fundingSource: paypal.FUNDING.CARD, // Para el botón de tarjeta de crédito
         createOrder: (data, actions) => {
-            
+
             metodoPago = "creditCard";
             console.log(metodoPago);
 
@@ -198,6 +198,7 @@ if (nivelesNombres.length > 0) {
 
 
 // Mostrar costo total en la vista
+totalCost = parseFloat(totalCost);
 document.getElementById('costo-total').innerText = `$${totalCost.toFixed(2)}`;
 
 // Configurar el botón PayPal al cargar
