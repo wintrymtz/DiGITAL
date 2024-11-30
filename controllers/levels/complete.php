@@ -22,13 +22,14 @@ try{
             'idUsuario' => $idUsuario
         ]);
             
-        unset($idLevel);
+        // unset($idLevel);
         unset($idUsuario);
 
         $response = [];
         $response["success"] = true;
         $response["errors"] = [];
-        $response["msg"] = 'nivel completado';
+        $response["msg"] = 'nivel completado:';
+        $response["level"] = $idLevel;
 
         echo json_encode($response);
         return;

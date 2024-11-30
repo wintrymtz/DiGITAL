@@ -269,7 +269,8 @@ BEGIN
 			FROM Curso c 
             INNER JOIN Usuario u ON c.idInstructor = u.idUsuario
             WHERE c.estado = true
-            ORDER BY c.calificacion DESC;
+            ORDER BY c.calificacion DESC
+                    LIMIT 5;
     END IF;
 
 	IF _instruccion = 'S_RECENT' THEN
@@ -286,7 +287,8 @@ BEGIN
 			FROM Curso c 
             INNER JOIN Usuario u ON c.idInstructor = u.idUsuario
             WHERE c.estado = true
-            ORDER BY c.fechaCreacion DESC;
+            ORDER BY c.fechaCreacion DESC
+                    LIMIT 5;
     END IF;
     
 	IF _instruccion = 'S_SELL' THEN
@@ -304,7 +306,9 @@ BEGIN
 			FROM Curso c 
             INNER JOIN Usuario u ON c.idInstructor = u.idUsuario
             WHERE c.estado = true
-            ORDER BY compras DESC;
+            ORDER BY compras DESC
+                    LIMIT 5;
+
     END IF;
 
 

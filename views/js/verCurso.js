@@ -28,6 +28,7 @@ function sendRequestGetMyLevels(idCurso) {
         .then(response => {
             return response.json();
         }).then(response => {
+            console.log(response);
             response.data.forEach((level) => {
                 MyLevels.push(level);
             })
@@ -35,7 +36,7 @@ function sendRequestGetMyLevels(idCurso) {
             currentLevel = MyLevels[0].numero;
             // console.log(currentLevel)
 
-            // console.log(MyLevels);
+            console.log('myLevels', MyLevels);
             renderLevelData(currentLevel);
         }).then(() => {
             MyLevels.forEach((level) => {
@@ -98,7 +99,6 @@ function renderInformation(course, _levels) {
                 item.classList.remove('mine');
                 item.classList.add('active');
             }
-            // console.log('my levels', MyLevels)
             MyLevels.forEach((level) => {
                 if (level.numero != currentLevel) {
                     // console.log('numero con mine', level.numero, currentLevel);
@@ -138,13 +138,17 @@ function renderLevelData(index) {
     MyLevels.forEach((a) => {
 
         if (a.numero == index) {
+            if (a.videoPath == null) {
+                a.videoPath = 0;
+            }
+
             if (a.videoPath.length > 0) {
                 let videoPath = "http://localhost" + a.videoPath.split('xampp2/htdocs')[1];
 
                 document.getElementById("videoSource").src = videoPath;
                 // document.getElementById("MyVideo").id = a.idArchivo;
                 document.getElementById("MyVideo").load();
-                document.getElementById("MyVideo").name = a.idArchivo;
+                document.getElementById("MyVideo").name = a.idNivel;
                 document.getElementById('level-name').textContent = a.nombre;
                 let archivo = document.createElement('li');
                 archivo.innerHTML = `
@@ -191,6 +195,8 @@ const video = document.getElementById("MyVideo");
 video.addEventListener('play', () => {
     console.log("se está reproduciendo el video: ", video.name);
     const idLevel = video.name;
+
+    console.log('intentando completar el nivel:', idLevel);
 
     fetch(`http://localhost:80/DiGITAL/levels/completeLevel?id=${idLevel}`)
         .then((response) => {
